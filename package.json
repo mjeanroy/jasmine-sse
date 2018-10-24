@@ -1,0 +1,25 @@
+{
+  "name": "jasmine-sse",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/jasmine-sse.js",
+  "scripts": {
+    "lint": "gulp lint",
+    "test": "gulp test",
+    "start": "node sample/server.js"
+  },
+  "keywords": [
+    "Jasmine",
+    "ServerSentEvent"
+  ],
+  "author": "Mickael Jeanroy",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "5.7.0",
+    "eslint-config-google": "0.11.0",
+    "express": "4.16.4",
+    "express-sse": "0.5.0",
+    "gulp": "3.9.1",
+    "gulp-eslint": "5.0.0"
+  }
+}

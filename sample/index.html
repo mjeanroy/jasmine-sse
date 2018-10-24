@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>ServerSentEvent Test</title>
+    <link rel="stylesheet" href="/app.css"/>
+  </head>
+  <body>
+    <h1>ServerSentEvent API</h1>
+
+    <div>
+      <div>
+        <div>
+          <button type="button" id="connect-btn">Connect</button>
+          <button type="button" id="disconnect-btn" disabled>Disconnect</button>
+        </div>
+
+        <hr/>
+
+        <div>
+          <form id="message-form">
+            <label for="input-message">Message:</label>
+            <input type="text" id="input-message"/>
+            <button id="send-btn" type="submit" disabled>Send</button>
+          </form>
+        </div>
+
+        <div id="output" style="border: 1px solid #eee;"></div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="/app.js"></script>
+</html>
