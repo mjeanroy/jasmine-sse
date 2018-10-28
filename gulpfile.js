@@ -23,8 +23,11 @@
  */
 
 const path = require('path');
+const log = require('fancy-log');
+const colors = require('ansi-colors');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
+const karma = require('karma');
 
 const conf = require('./conf');
 
@@ -41,3 +44,31 @@ gulp.task('lint', () => {
       .pipe(eslint.format())
       .pipe(eslint.failAfterError());
 });
+
+gulp.task('test', ['lint'], (done) => {
+  startKarma('test', done);
+});
+
+gulp.task('tdd', (done) => {
+  startKarma('tdd', done);
+});
+
+/**
+ * Start Karma Server and run unit tests.
+ *
+ * @param {string} mode The test mode (test or tdd).
+ * @param {function} done The done callback.
+ * @return {void}
+ */
+function startKarma(mode, done) {
+  const fileName = `karma.${mode}.conf.js`;
+  const configFile = path.join(conf.root, fileName);
+
+  const srv = new karma.Server({configFile}, () => {
+    log(colors.grey('Calling done callback of Karma'));
+    done();
+  });
+
+  log(colors.grey(`Running karma with configuration: ${fileName}`));
+  srv.start();
+}
