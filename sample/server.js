@@ -24,21 +24,34 @@
 
 const express = require('express');
 const app = express();
-
 const SSE = require('express-sse');
-const sse = new SSE();
+const bodyParser = require('body-parser');
+const connections = [];
+
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+app.use(bodyParser.raw());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', express.static(__dirname));
 
 app.get('/stream', (req, res) => {
-  console.log('[INFO] New connection requested, initialize sse connection');
+  console.log('[INFO] New incomming connection');
+  const sse = new SSE();
   sse.init(req, res);
+
+  connections.push(sse);
+
+  req.on('close', () => {
+    console.log('[INFO] Closing connection');
+    connections.splice(connections.indexOf(sse), 1);
+  });
 });
 
 app.post('/message', (req, res) => {
   console.log('[INFO] Receiving message: ', req.body);
-  sse.send(req.body);
-  res.sendStatus(200);
+  connections.forEach((sse) => sse.send(req.body));
+  res.sendStatus(201);
 });
 
 app.listen(3000, () => {

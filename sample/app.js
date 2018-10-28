@@ -53,15 +53,26 @@
   function closeStream() {
     if (sse) {
       sse.close();
+      sse = null;
     }
   }
 
   $disconnect.addEventListener('click', function() {
     closeStream();
+
+    $input.value = '';
+    $send.disabled = true;
+    $connect.disabled = false;
+    $disconnect.disabled = true;
   });
 
   $connect.addEventListener('click', function() {
     createStream();
+
+    $input.value = '';
+    $send.disabled = false;
+    $connect.disabled = true;
+    $disconnect.disabled = false;
   });
 
   $form.addEventListener('submit', function(e) {
@@ -92,10 +103,6 @@
   }
 
   function onopen(e) {
-    $disconnect.disabled = false;
-    $send.disabled = false;
-    $connect.disabled = true;
-
     console.log('Method `onopen` called:', this, e);
     appendToOutput('SSE Connection opened, `onpen` callback executed');
   }
