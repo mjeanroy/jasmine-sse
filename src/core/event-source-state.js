@@ -22,36 +22,24 @@
  * THE SOFTWARE.
  */
 
-import {fakeEventSourceFactory} from '../../src/core/fake-event-source.js';
+/**
+ * The connection has not yet been established.
+ * @type {number}
+ * @see https://html.spec.whatwg.org/multipage/server-sent-events.html#dom-eventsource-connecting
+ */
+export const CONNECTING = 0;
 
-describe('FakeEventSource', () => {
-  let FakeEventSource;
+/**
+ * The user agent has an open connection and is dispatching events as it receives them.
+ * @type {number}
+ * @see https://html.spec.whatwg.org/multipage/server-sent-events.html#dom-eventsource-open
+ */
+export const OPEN = 1;
 
-  beforeEach(() => {
-    FakeEventSource = fakeEventSourceFactory();
-  });
-
-  it('should define state contants', () => {
-    expect(FakeEventSource.CONNECTING).toBe(0);
-    expect(FakeEventSource.OPEN).toBe(1);
-    expect(FakeEventSource.CLOSED).toBe(2);
-  });
-
-  it('should instantiate SSE connection', () => {
-    const sse = new FakeEventSource('/stream');
-
-    expect(sse.readyState).toBe(0);
-    expect(sse.withCredentials).toBe(false);
-    expect(sse.url).toBe('http://localhost:9876/stream');
-  });
-
-  it('should instantiate SSE connection with `withCredentials`', () => {
-    const sse = new FakeEventSource('/stream', {
-      withCredentials: true,
-    });
-
-    expect(sse.readyState).toBe(0);
-    expect(sse.withCredentials).toBe(true);
-    expect(sse.url).toBe('http://localhost:9876/stream');
-  });
-});
+/**
+ * The connection is not open, and the user agent is not trying to reconnect. Either there was a fatal error or
+ * the close() method was invoked.
+ * @type {number}
+ * @see https://html.spec.whatwg.org/multipage/server-sent-events.html#dom-eventsource-closed
+ */
+export const CLOSED = 2;

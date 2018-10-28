@@ -130,7 +130,7 @@ class FakeUrl {
  * @return {FakeUrl} The parsed URL.
  */
 function nativeUrl(url) {
-  const result = new URL(url);
+  const result = new URL(url, document.documentURI);
   return new FakeUrl(
       result.protocol,
       result.username,

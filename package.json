@@ -5,6 +5,7 @@
   "main": "dist/jasmine-sse.js",
   "scripts": {
     "lint": "gulp lint",
+    "tdd": "gulp tdd",
     "test": "gulp test",
     "start": "node sample/server.js"
   },
