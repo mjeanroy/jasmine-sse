@@ -22,14 +22,15 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+/**
+ * Iterates over elements of collection and invokes iteratee for each element.
+ *
+ * @param {Array<*>} array The given array.
+ * @param {function} iteratee The given iteratee function.
+ * @return {void}
+ */
+export function forEach(array, iteratee) {
+  for (let i = 0, size = array.length; i < size; ++i) {
+    iteratee.call(null, array[i], i, array);
+  }
+}

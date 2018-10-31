@@ -24,3 +24,4 @@
 
 import './common/index.js';
 import './fake-event-source.test.js';
+import './fake-event.test.js';

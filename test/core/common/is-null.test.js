@@ -22,14 +22,14 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {isNull} from '../../../src/core/common/is-null.js';
+
+describe('isNull', () => {
+  it('should return true with null', () => {
+    expect(isNull(null)).toBe(true);
+    expect(isNull(undefined)).toBe(false);
+    expect(isNull(0)).toBe(false);
+    expect(isNull(true)).toBe(false);
+    expect(isNull([])).toBe(false);
+  });
+});

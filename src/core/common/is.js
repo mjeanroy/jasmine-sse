@@ -22,14 +22,17 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {tagName} from './tag-name.js';
+
+/**
+ * Check that a given value is of a given type.
+ * The type is the tag name displayed with `Object.prototype.toString`
+ * function call.
+ *
+ * @param {*} value Value to check.
+ * @param {string} type The type id.
+ * @return {boolean} `true` if `obj` is of given type, `false` otherwise.
+ */
+export function is(value, type) {
+  return tagName(value) === `[object ${type}]`;
+}

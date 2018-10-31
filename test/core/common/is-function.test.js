@@ -22,14 +22,17 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {isFunction} from '../../../src/core/common/is-function.js';
+
+describe('isFunction', () => {
+  it('should return true with a function', () => {
+    expect(isFunction(() => {})).toBe(true);
+
+    expect(isFunction('')).toBe(false);
+    expect(isFunction(null)).toBe(false);
+    expect(isFunction(undefined)).toBe(false);
+    expect(isFunction(0)).toBe(false);
+    expect(isFunction(true)).toBe(false);
+    expect(isFunction([])).toBe(false);
+  });
+});

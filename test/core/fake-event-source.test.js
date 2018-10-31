@@ -23,11 +23,14 @@
  */
 
 import {fakeEventSourceFactory} from '../../src/core/fake-event-source.js';
+import {fakeEventFactory} from '../../src/core/fake-event.js';
 
 describe('FakeEventSource', () => {
+  let FakeEvent;
   let FakeEventSource;
 
   beforeEach(() => {
+    FakeEvent = fakeEventFactory();
     FakeEventSource = fakeEventSourceFactory();
   });
 
@@ -53,5 +56,173 @@ describe('FakeEventSource', () => {
     expect(sse.readyState).toBe(0);
     expect(sse.withCredentials).toBe(true);
     expect(sse.url).toBe('http://localhost:9876/stream');
+  });
+
+  describe('once created', () => {
+    let sse;
+
+    beforeEach(() => {
+      sse = new FakeEventSource('/stream');
+    });
+
+    it('should add event listener', () => {
+      const event = new FakeEvent('open', sse);
+      const listener = jasmine.createSpy('listener').and.callFake((e) => (
+        expect(e.eventPhase).toBe(2)
+      ));
+
+      sse.addEventListener('open', listener);
+      sse.dispatchEvent(event);
+
+      expect(listener).toHaveBeenCalledWith(event);
+      expect(event.eventPhase).toBe(0);
+    });
+
+    it('should fail to add event listener without any argument', () => {
+      expect(() => sse.addEventListener()).toThrow(new Error(
+          `Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only 0 present.`
+      ));
+    });
+
+    it('should fail to add event listener without listener handler', () => {
+      expect(() => sse.addEventListener('open')).toThrow(new Error(
+          `Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only 1 present.`
+      ));
+    });
+
+    it('should not add duplicated event listener', () => {
+      const listener = jasmine.createSpy('listener');
+      const event = {type: 'open'};
+
+      sse.addEventListener('open', listener);
+      sse.dispatchEvent(event);
+
+      expect(listener).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not try to remove unregistered event listener', () => {
+      const listener = jasmine.createSpy('listener');
+      const event = {type: 'open'};
+
+      sse.removeEventListener('open', listener);
+      sse.dispatchEvent(event);
+
+      expect(listener).not.toHaveBeenCalled();
+    });
+
+    it('should remove event listener', () => {
+      const listener = jasmine.createSpy('listener');
+      const event = new FakeEvent('open', sse);
+
+      sse.addEventListener('open', listener);
+      sse.removeEventListener('open', listener);
+      sse.dispatchEvent(event);
+
+      expect(listener).not.toHaveBeenCalled();
+    });
+
+    it('should fail to remove event listener without any argument', () => {
+      expect(() => sse.removeEventListener()).toThrow(new Error(
+          `Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, but only 0 present.`
+      ));
+    });
+
+    it('should fail to remove event listener without listener handler', () => {
+      expect(() => sse.removeEventListener('open')).toThrow(new Error(
+          `Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, but only 1 present.`
+      ));
+    });
+
+    it('should dispatch event to event listeners', () => {
+      const event = new FakeEvent('open', sse);
+      const onmessage = jasmine.createSpy('onmessage');
+      const onopen = jasmine.createSpy('onopen').and.callFake((e) => (
+        expect(e.eventPhase).toBe(2)
+      ));
+
+      sse.addEventListener('open', onopen);
+      sse.addEventListener('message', onmessage);
+
+      const canceled = sse.dispatchEvent(event);
+
+      expect(canceled).toBe(false);
+      expect(onopen).toHaveBeenCalledWith(event);
+      expect(onopen.calls.mostRecent().object).toBe(sse);
+      expect(onmessage).not.toHaveBeenCalledWith();
+      expect(event.eventPhase).toBe(0);
+    });
+
+    it('should catch errors in event listeners and execute next listeners', () => {
+      spyOn(console, 'error');
+
+      const onOpenListener1 = jasmine.createSpy('onOpenListener1').and.throwError('Error With Listener 1');
+      const onOpenListener2 = jasmine.createSpy('onOpenListener2');
+      const event = new FakeEvent('open', sse);
+
+      sse.addEventListener('open', onOpenListener1);
+      sse.addEventListener('open', onOpenListener2);
+      sse.dispatchEvent(event);
+
+      expect(onOpenListener1).toHaveBeenCalled();
+      expect(onOpenListener2).toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalled();
+    });
+
+    it('should dispatch event on objects implemeting the handleEvent method', () => {
+      const onopen = {
+        handleEvent: jasmine.createSpy('onopen').and.callFake((e) => (
+          expect(e.eventPhase).toBe(2)
+        )),
+      };
+
+      const onmessage = {
+        handleEvent: jasmine.createSpy('onmessage'),
+      };
+
+      const event = new FakeEvent('open', sse);
+
+      sse.addEventListener('open', onopen);
+      sse.addEventListener('message', onmessage);
+
+      const canceled = sse.dispatchEvent(event);
+
+      expect(canceled).toBe(false);
+      expect(onopen.handleEvent).toHaveBeenCalledWith(event);
+      expect(onopen.handleEvent.calls.mostRecent().object).toBe(onopen);
+      expect(onmessage.handleEvent).not.toHaveBeenCalledWith();
+      expect(event.eventPhase).toBe(0);
+    });
+
+    it('should call direct method listeners', () => {
+      const onmessage = jasmine.createSpy('onmessage');
+      const event = new FakeEvent('open', sse);
+      const onopen = jasmine.createSpy('onopen').and.callFake((e) => (
+        expect(e.eventPhase).toBe(2)
+      ));
+
+      sse.onopen = onopen;
+      sse.onmessage = onmessage;
+
+      const canceled = sse.dispatchEvent(event);
+
+      expect(canceled).toBe(false);
+      expect(onopen).toHaveBeenCalledWith(event);
+      expect(onopen.calls.mostRecent().object).toBe(sse);
+      expect(onmessage).not.toHaveBeenCalledWith();
+      expect(event.eventPhase).toBe(0);
+    });
+
+    it('should stop immediate propagation of event', () => {
+      const listener1 = jasmine.createSpy('listener1').and.callFake((e) => e.stopImmediatePropagation());
+      const listener2 = jasmine.createSpy('listener2');
+      const event = new FakeEvent('open', sse);
+
+      sse.addEventListener('open', listener1);
+      sse.addEventListener('open', listener2);
+      sse.dispatchEvent(event);
+
+      expect(listener1).toHaveBeenCalledWith(event);
+      expect(listener2).not.toHaveBeenCalled();
+    });
   });
 });

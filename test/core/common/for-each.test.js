@@ -22,14 +22,19 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {forEach} from '../../../src/core/common/for-each.js';
+
+describe('forEach', () => {
+  it('should call iteratee for each elements in array', () => {
+    const array = [2, 4, 6];
+    const iteratee = jasmine.createSpy().and.callFake((x) =>
+      x * x
+    );
+
+    forEach(array, iteratee);
+
+    expect(iteratee).toHaveBeenCalledWith(2, 0, array);
+    expect(iteratee).toHaveBeenCalledWith(4, 1, array);
+    expect(iteratee).toHaveBeenCalledWith(6, 2, array);
+  });
+});

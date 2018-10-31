@@ -22,14 +22,24 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {isNull} from './is-null.js';
+import {isUndefined} from './is-undefined.js';
+import {ObjectProto} from './object-proto.js';
+
+/**
+ * Return the tag name of the object (a.k.a the result of `Object.prototype.toString`).
+ *
+ * @param {*} value Object to get tag name.
+ * @return {string} Tag name.
+ */
+export function tagName(value) {
+  if (isNull(value)) {
+    return '[object Null]';
+  }
+
+  if (isUndefined(value)) {
+    return '[object Undefined]';
+  }
+
+  return ObjectProto.toString.call(value);
+}

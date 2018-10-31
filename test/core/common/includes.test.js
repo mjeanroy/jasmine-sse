@@ -22,14 +22,17 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {includes} from '../../../src/core/common/includes.js';
+
+describe('includes', () => {
+  it('should check if element is in array', () => {
+    const array = [1, 2, 3];
+
+    expect(includes(array, 1)).toBe(true);
+    expect(includes(array, 2)).toBe(true);
+    expect(includes(array, 3)).toBe(true);
+
+    expect(includes(array, 0)).toBe(false);
+    expect(includes(array, 4)).toBe(false);
+  });
+});

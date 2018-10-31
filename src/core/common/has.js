@@ -22,14 +22,15 @@
  * THE SOFTWARE.
  */
 
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-function.test.js';
-import './is-null.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {ObjectProto} from './object-proto.js';
+
+/**
+ * Check if a given object has given key as own property.
+ *
+ * @param {Object} object The given object.
+ * @param {string} key The given key.
+ * @return {boolean} `true` if `objecct` has given `key`, `false`otherwise.
+ */
+export function has(object, key) {
+  return ObjectProto.hasOwnProperty.call(object, key);
+}

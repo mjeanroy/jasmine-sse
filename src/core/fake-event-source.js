@@ -22,9 +22,15 @@
  * THE SOFTWARE.
  */
 
+import {forEach} from './common/for-each.js';
+import {has} from './common/has.js';
+import {includes} from './common/includes.js';
+import {indexOf} from './common/index-of.js';
+import {isFunction} from './common/is-function.js';
 import {factory} from './common/factory.js';
 import {parseUrl} from './common/parse-url.js';
 import {CONNECTING, OPEN, CLOSED} from './event-source-state.js';
+import {NONE, AT_TARGET} from './event-states.js';
 
 export const fakeEventSourceFactory = factory(() => {
   /**
@@ -70,6 +76,9 @@ export const fakeEventSourceFactory = factory(() => {
 
       // When the object is created its readyState must be set to CONNECTING (0)
       this._readyState = CONNECTING;
+
+      // The registered listeners.
+      this._listeners = {};
     }
 
     /**
@@ -98,6 +107,117 @@ export const fakeEventSourceFactory = factory(() => {
      */
     get withCredentials() {
       return this._withCredentials;
+    }
+
+    /**
+     * Sets up a function that will be called whenever the specified event is delivered to the target.
+     *
+     * @param {string} event The event identifier.
+     * @param {function} listener The listener function.
+     * @return {void}
+     */
+    addEventListener(event, listener) {
+      const nbArguments = arguments.length;
+
+      if (nbArguments !== 2) {
+        throw new TypeError(
+            `Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, ` +
+            `but only ${nbArguments} present.`
+        );
+      }
+
+      if (!has(this._listeners, event)) {
+        this._listeners[event] = [];
+      }
+
+      const listeners = this._listeners[event];
+
+      if (!includes(listeners, listener)) {
+        listeners.push(listener);
+      }
+    }
+
+    /**
+     * Removes from the  event listener previously registered with `addEventListener()`.
+     *
+     * @param {string} event The event name.
+     * @param {function} listener The listener function.
+     * @return {void}
+     */
+    removeEventListener(event, listener) {
+      const nbArguments = arguments.length;
+
+      if (nbArguments !== 2) {
+        throw new TypeError(
+            `Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, ` +
+            `but only ${nbArguments} present.`
+        );
+      }
+
+      if (!has(this._listeners, event)) {
+        return;
+      }
+
+      const listeners = this._listeners[event];
+      const idx = indexOf(listeners, listener);
+      if (idx >= 0) {
+        listeners.splice(idx, 1);
+      }
+    }
+
+    /**
+     * Dispatches an Event at the specified EventTarget, (synchronously) invoking
+     * the affected EventListeners in the appropriate order.
+     *
+     * @param {Event} event The event to dispatch.
+     * @return {void}
+     */
+    dispatchEvent(event) {
+      const type = event.type;
+      const listeners = has(this._listeners, type) ? this._listeners[type] : [];
+
+      // Ensure the event phase is correct.
+      event._eventPhase = AT_TARGET;
+
+      const methodName = `on${type}`;
+      const method = this[methodName];
+      if (isFunction(method)) {
+        method.call(this, event);
+      }
+
+      if (!event._stopped) {
+        forEach(listeners, (listener) => {
+          if (!event._stopped) {
+            this._executeListener(listener, event);
+          }
+        });
+      }
+
+      // Ensure the event phase is correct.
+      event._eventPhase = NONE;
+
+      return !!event.cancelable && !!event.defaultPrevented;
+    }
+
+    /**
+     * Execute the listener function (it it is a real `function`).
+     * Note that error are catched and logged to the console.
+     *
+     * @param {function} listener The listener function.
+     * @param {Object} event The event to dispatch.
+     * @return {void}
+     */
+    _executeListener(listener, event) {
+      try {
+        if (isFunction(listener)) {
+          listener.call(this, event);
+        } else if (isFunction(listener.handleEvent)) {
+          listener.handleEvent(event);
+        }
+      } catch (e) {
+        console.error(e);
+        console.error(e.stack);
+      }
     }
   }
 
