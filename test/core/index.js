@@ -23,5 +23,7 @@
  */
 
 import './common/index.js';
+import './fake-event-source-proxy.test.js';
 import './fake-event-source.test.js';
 import './fake-event.test.js';
+import './fake-message-event.test.js';

@@ -22,19 +22,17 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {isObject} from '../../../src/core/common/is-object.js';
+
+describe('isObject', () => {
+  it('should return true with an object, false with an array or a function', () => {
+    expect(isObject({})).toBe(true);
+
+    expect(isObject(null)).toBe(false);
+    expect(isObject(undefined)).toBe(false);
+    expect(isObject(0)).toBe(false);
+    expect(isObject(true)).toBe(false);
+    expect(isObject([])).toBe(false);
+    expect(isObject(() => {})).toBe(false);
+  });
+});

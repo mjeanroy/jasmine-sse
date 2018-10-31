@@ -22,19 +22,31 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {forEach} from './for-each.js';
+import {keys} from './keys.js';
+
+const _assign = Object.assign ? Object.assign : ((target, ...sources) => {
+  const to = Object(target);
+
+  for (let i = 0, size = sources.length; i < size; ++i) {
+    const current = sources[i];
+    const currentKeys = keys(current);
+    forEach(currentKeys, (k) => {
+      to[k] = current[k];
+    });
+  }
+
+  return to;
+});
+
+/**
+ * Assigns own enumerable string keyed properties of source objects to the destination object.
+ * Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
+ *
+ * @param {Object} target The destination object.
+ * @param {Array<Object>} sources The source objects.
+ * @return {Object} The merged object.
+ */
+export function assign(target, ...sources) {
+  return _assign(target, ...sources);
+}

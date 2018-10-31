@@ -22,19 +22,20 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {isArray} from './is-array.js';
+import {isFunction} from './is-function.js';
+import {isNil} from './is-nil.js';
+
+/**
+ * Check if a given value is a `string` value.
+ *
+ * @param {*} value The value to check.
+ * @return {boolean} `true` if `value` is a `string`, `false`otherwise.
+ */
+export function isObject(value) {
+  if (isNil(value) || isFunction(value) || isArray(value)) {
+    return false;
+  }
+
+  return typeof value === 'object';
+}

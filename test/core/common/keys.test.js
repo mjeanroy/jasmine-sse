@@ -22,19 +22,12 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
+import {keys} from '../../../src/core/common/keys.js';
+
+describe('keys', () => {
+  it('should get all keys of object', () => {
+    const object = {id: 1, name: 'John Doe'};
+    const result = keys(object);
+    expect(result).toEqual(['id', 'name']);
+  });
+});
