@@ -58,6 +58,13 @@ describe('FakeEventSource', () => {
     expect(sse.url).toBe('http://localhost:9876/stream');
   });
 
+  it('should initialize handlers to null', () => {
+    const sse = new FakeEventSource('/stream');
+    expect(sse.onopen).toBeNull();
+    expect(sse.onmessage).toBeNull();
+    expect(sse.onerror).toBeNull();
+  });
+
   describe('once created', () => {
     let sse;
 

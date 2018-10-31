@@ -77,8 +77,10 @@ export const fakeEventSourceFactory = factory(() => {
       // When the object is created its readyState must be set to CONNECTING (0)
       this._readyState = CONNECTING;
 
-      // The registered listeners.
       this._listeners = {};
+      this.onopen = null;
+      this.onmessage = null;
+      this.onerror = null;
     }
 
     /**

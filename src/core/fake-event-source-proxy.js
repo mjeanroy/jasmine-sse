@@ -81,6 +81,63 @@ s     *
     }
 
     /**
+     * Get the tracked `EventSource` `onopen` handler.
+     *
+     * @return {function} The `onopen` handler.
+     */
+    get onopen() {
+      return this._eventSource.onopen;
+    }
+
+    /**
+     * Set the tracked `EventSource` `onopen` handler.
+     *
+     * @param {function} onopen The `onopen` handler.
+     * @return {void}
+     */
+    set onopen(onopen) {
+      this._eventSource.onopen = onopen;
+    }
+
+    /**
+     * Get the tracked `EventSource` `onerror` handler.
+     *
+     * @return {function} The `onerror` handler.
+     */
+    get onerror() {
+      return this._eventSource.onerror;
+    }
+
+    /**
+     * Set the tracked `EventSource` `onerror` handler.
+     *
+     * @param {function} onerror The `onerror` handler.
+     * @return {void}
+     */
+    set onerror(onerror) {
+      this._eventSource.onerror = onerror;
+    }
+
+    /**
+     * Get the tracked `EventSource` `onmessage` handler.
+     *
+     * @return {function} The `onmessage` handler.
+     */
+    get onmessage() {
+      return this._eventSource.onmessage;
+    }
+
+    /**
+     * Set the tracked `EventSource` `onmessage` handler.
+     *
+     * @param {function} onmessage The `onmessage` handler.
+     * @return {void}
+     */
+    set onmessage(onmessage) {
+      this._eventSource.onmessage = onmessage;
+    }
+
+    /**
      * Add new event listener to internal event source connection.
      *
      * @param {string} type Event type.

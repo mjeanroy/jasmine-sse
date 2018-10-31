@@ -62,6 +62,40 @@ describe('FakeEventSource', () => {
       spyOn(sse, 'dispatchEvent').and.callThrough();
     });
 
+    it('should initialize handlers to null', () => {
+      expect(proxy.onerror).toBeNull();
+      expect(proxy.onopen).toBeNull();
+      expect(proxy.onmessage).toBeNull();
+    });
+
+    it('should set ws handlers', () => {
+      sse.onerror = jasmine.createSpy('onerror');
+      sse.onopen = jasmine.createSpy('onopen');
+      sse.onmessage = jasmine.createSpy('onmessage');
+
+      expect(proxy.onerror).toBe(sse.onerror);
+      expect(proxy.onopen).toBe(sse.onopen);
+      expect(proxy.onmessage).toBe(sse.onmessage);
+    });
+
+    it('should define ws handlers from proxy', () => {
+      const onerror = jasmine.createSpy('onerror');
+      const onopen = jasmine.createSpy('onopen');
+      const onmessage = jasmine.createSpy('onmessage');
+
+      proxy.onerror = onerror;
+      proxy.onopen = onopen;
+      proxy.onmessage = onmessage;
+
+      expect(proxy.onerror).toBe(onerror);
+      expect(proxy.onopen).toBe(onopen);
+      expect(proxy.onmessage).toBe(onmessage);
+
+      expect(proxy.onerror).toBe(sse.onerror);
+      expect(proxy.onopen).toBe(sse.onopen);
+      expect(proxy.onmessage).toBe(sse.onmessage);
+    });
+
     it('should add event listener', () => {
       const type = 'open';
       const listener = jasmine.createSpy('listener');
