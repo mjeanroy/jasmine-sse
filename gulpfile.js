@@ -28,6 +28,9 @@ const colors = require('ansi-colors');
 const del = require('del');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
+const bump = require('gulp-bump');
+const git = require('gulp-git');
+const tagVersion = require('gulp-tag-version');
 const karma = require('karma');
 const rollup = require('rollup');
 
@@ -76,6 +79,34 @@ gulp.task('travis', ['lint'], (done) => {
 gulp.task('build', ['clean', 'lint'], () => (
   rollup.rollup(rollupConf).then((bundle) => bundle.write(rollupConf.output))
 ));
+
+// Release tasks
+['minor', 'major', 'patch'].forEach((level) => {
+  const PKG_JSON = path.join(conf.root, 'package.json');
+  const DIST = conf.dist;
+
+  gulp.task(`bump:${level}`, () => (
+    gulp.src([PKG_JSON])
+        .pipe(bump({type: level}))
+        .pipe(gulp.dest(conf.root))
+  ));
+
+  gulp.task(`release:prepare:${level}`, ['build', `bump:${level}`], () => (
+    gulp.src([DIST, PKG_JSON])
+        .pipe(git.add({args: '-f'}))
+        .pipe(git.commit('release: release version'))
+  ));
+
+  gulp.task(`tag:${level}`, [`release:prepare:${level}`], () => (
+    gulp.src([PKG_JSON]).pipe(tagVersion())
+  ));
+
+  gulp.task(`release:${level}`, ['build', `tag:${level}`], () => (
+    gulp.src([DIST])
+        .pipe(git.rm({args: '-rf'}))
+        .pipe(git.commit('release: prepare next release'))
+  ));
+});
 
 /**
  * Start Karma Server and run unit tests.
