@@ -257,6 +257,18 @@ export const fakeEventSourceFactory = factory(() => {
           new FakeEvent('error', this)
       );
     }
+
+    /**
+     * Reestablish the `EventSource` connection.
+     *
+     * @return {void}
+     */
+    _reestablishConnection() {
+      this._readyState = CONNECTING;
+      this.dispatchEvent(
+          new FakeEvent('error', this)
+      );
+    }
   }
 
   FakeEventSource.CONNECTING = CONNECTING;

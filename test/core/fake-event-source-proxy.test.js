@@ -215,6 +215,25 @@ describe('FakeEventSource', () => {
       expect(e1.target).toBe(sse);
     });
 
+    it('should reestablish connection', () => {
+      const onErrorListener = jasmine.createSpy('onErrorListener');
+      const onerror = jasmine.createSpy('onerror');
+
+      proxy.onerror = onerror;
+      proxy.addEventListener('error', onErrorListener);
+      proxy.reestablishConnection();
+
+      expect(proxy.readyState).toBe(0);
+      expect(onErrorListener).toHaveBeenCalledTimes(1);
+      expect(onerror).toHaveBeenCalledTimes(1);
+
+      const e1 = onErrorListener.calls.mostRecent().args[0];
+      const e2 = onerror.calls.mostRecent().args[0];
+      expect(e1).toBe(e2);
+      expect(e1.type).toBe('error');
+      expect(e1.target).toBe(sse);
+    });
+
     describe('once opened', () => {
       beforeEach(() => {
         proxy.emit('open connection');
@@ -237,6 +256,25 @@ describe('FakeEventSource', () => {
         expect(event.data).toBe(data);
         expect(event.target).toBe(sse);
       });
+
+      it('should reestablish connection', () => {
+        const onErrorListener = jasmine.createSpy('onErrorListener');
+        const onerror = jasmine.createSpy('onerror');
+
+        proxy.onerror = onerror;
+        proxy.addEventListener('error', onErrorListener);
+        proxy.reestablishConnection();
+
+        expect(proxy.readyState).toBe(0);
+        expect(onErrorListener).toHaveBeenCalledTimes(1);
+        expect(onerror).toHaveBeenCalledTimes(1);
+
+        const e1 = onErrorListener.calls.mostRecent().args[0];
+        const e2 = onerror.calls.mostRecent().args[0];
+        expect(e1).toBe(e2);
+        expect(e1.type).toBe('error');
+        expect(e1.target).toBe(sse);
+      });
     });
 
     describe('once closed', () => {
@@ -257,6 +295,19 @@ describe('FakeEventSource', () => {
         proxy.onerror = onerror;
         proxy.addEventListener('error', onErrorListener);
         proxy.failConnection();
+
+        expect(proxy.readyState).toBe(2);
+        expect(onErrorListener).not.toHaveBeenCalled();
+        expect(onerror).not.toHaveBeenCalled();
+      });
+
+      it('should not reestablish connection', () => {
+        const onErrorListener = jasmine.createSpy('onErrorListener');
+        const onerror = jasmine.createSpy('onerror');
+
+        proxy.onerror = onerror;
+        proxy.addEventListener('error', onErrorListener);
+        proxy.reestablishConnection();
 
         expect(proxy.readyState).toBe(2);
         expect(onErrorListener).not.toHaveBeenCalled();

@@ -223,6 +223,18 @@ s     *
         this._eventSource._failConnection();
       }
     }
+
+    /**
+     * Reestablish the connection.
+     *
+     * @return {void}
+     * @see https://html.spec.whatwg.org/multipage/server-sent-events.html#reestablish-the-connection
+     */
+    reestablishConnection() {
+      if (this._eventSource.readyState !== CLOSED) {
+        this._eventSource._reestablishConnection();
+      }
+    }
   }
 
   FakeEventSourceProxy.CONNECTING = CONNECTING;
