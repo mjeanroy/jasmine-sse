@@ -205,6 +205,15 @@ export const fakeEventSourceFactory = factory(() => {
     }
 
     /**
+     * Sets the readyState attribute to CLOSED.
+     *
+     * @return {void}
+     */
+    close() {
+      this._readyState = CLOSED;
+    }
+
+    /**
      * Execute the listener function (it it is a real `function`).
      * Note that error are catched and logged to the console.
      *

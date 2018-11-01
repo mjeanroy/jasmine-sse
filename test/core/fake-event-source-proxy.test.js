@@ -60,6 +60,7 @@ describe('FakeEventSource', () => {
       spyOn(sse, 'addEventListener').and.callThrough();
       spyOn(sse, 'removeEventListener').and.callThrough();
       spyOn(sse, 'dispatchEvent').and.callThrough();
+      spyOn(sse, 'close').and.callThrough();
     });
 
     it('should initialize handlers to null', () => {
@@ -120,6 +121,11 @@ describe('FakeEventSource', () => {
       proxy.dispatchEvent(event);
 
       expect(sse.dispatchEvent).toHaveBeenCalledWith(event);
+    });
+
+    it('should close connection', () => {
+      proxy.close();
+      expect(sse.close).toHaveBeenCalled();
     });
 
     it('should emit data', () => {
@@ -211,6 +217,18 @@ describe('FakeEventSource', () => {
         expect(event.type).toBe('message');
         expect(event.data).toBe(data);
         expect(event.target).toBe(sse);
+      });
+    });
+
+    describe('once closed', () => {
+      beforeEach(() => {
+        proxy.close();
+      });
+
+      it('should fail to emit data', () => {
+        expect(() => proxy.emit('test')).toThrow(new Error(
+            `Failed to emit message on 'EventSource': The connection state is CLOSED.`
+        ));
       });
     });
   });

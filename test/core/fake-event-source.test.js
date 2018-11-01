@@ -231,5 +231,10 @@ describe('FakeEventSource', () => {
       expect(listener1).toHaveBeenCalledWith(event);
       expect(listener2).not.toHaveBeenCalled();
     });
+
+    it('should close connection', () => {
+      sse.close();
+      expect(sse.readyState).toBe(2);
+    });
   });
 });

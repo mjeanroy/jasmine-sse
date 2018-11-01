@@ -168,6 +168,15 @@ s     *
     }
 
     /**
+     * Sets the `readyState` value of internal event source connection to `CLOSED`.
+     *
+     * @return {void}
+     */
+    close() {
+      this._eventSource.close();
+    }
+
+    /**
      * Emit new message to the sse connection.
      *
      * @param {string|object} data The message data to emit.
