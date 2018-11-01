@@ -22,22 +22,14 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './flatten.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './map.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
-import './values.test.js';
+import {flatten} from '../../../src/core/common/flatten.js';
+
+describe('flatten', () => {
+  it('should flatten arrays', () => {
+    const array1 = [1, 2, 3];
+    const array2 = [4, 5, 6];
+    const arrays = [array1, array2];
+    const results = flatten(arrays);
+    expect(results).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+});

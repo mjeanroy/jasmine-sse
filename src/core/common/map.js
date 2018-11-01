@@ -22,22 +22,20 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './flatten.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './map.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
-import './values.test.js';
+/**
+ * Map each elements of given array to an array of new elements, each one
+ * being the results of the `iteratee` function.
+ *
+ * @param {Array<*>} array The given array.
+ * @param {function} iteratee The given predicate.
+ * @return {Array<*>} The new results.
+ */
+export function map(array, iteratee) {
+  const results = [];
+
+  for (let i = 0, size = array.length; i < size; ++i) {
+    results.push(iteratee.call(null, array[i], i, array));
+  }
+
+  return results;
+}

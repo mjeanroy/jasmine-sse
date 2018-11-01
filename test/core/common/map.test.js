@@ -22,22 +22,20 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './flatten.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './map.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
-import './values.test.js';
+import {map} from '../../../src/core/common/map.js';
+
+describe('map', () => {
+  it('should map elements of array', () => {
+    const array = [2, 4, 6];
+    const iteratee = jasmine.createSpy().and.callFake((x) =>
+      x * x
+    );
+
+    const results = map(array, iteratee);
+
+    expect(results).toEqual([4, 16, 36]);
+    expect(iteratee).toHaveBeenCalledWith(2, 0, array);
+    expect(iteratee).toHaveBeenCalledWith(4, 1, array);
+    expect(iteratee).toHaveBeenCalledWith(6, 2, array);
+  });
+});

@@ -27,6 +27,8 @@ import {isFunction} from './common/is-function.js';
 import {isNil} from './common/is-nil.js';
 import {isObject} from './common/is-object.js';
 import {factory} from './common/factory.js';
+import {flatten} from './common/flatten.js';
+import {values} from './common/values.js';
 import {fakeMessageEventFactory} from './fake-message-event.js';
 import {CONNECTING, OPEN, CLOSED} from './event-source-state.js';
 
@@ -234,6 +236,19 @@ s     *
       if (this._eventSource.readyState !== CLOSED) {
         this._eventSource._reestablishConnection();
       }
+    }
+
+    /**
+     * Get all registered listeners, or listeners for given specific event
+     * type.
+     *
+     * @param {string} type Event type (optional).
+     * @return {Array<function>} The registered listeners.
+     */
+    getEventListeners(type = '') {
+      const sseListeners = this._eventSource._listeners;
+      const listeners = type ? sseListeners[type] : flatten(values(sseListeners));
+      return listeners ? listeners.slice() : [];
     }
   }
 

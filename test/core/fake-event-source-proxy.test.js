@@ -234,6 +234,43 @@ describe('FakeEventSource', () => {
       expect(e1.target).toBe(sse);
     });
 
+    it('should get register listeners', () => {
+      const listener1 = jasmine.createSpy('listener1');
+      const listener2 = jasmine.createSpy('listener2');
+
+      sse.addEventListener('open', listener1);
+      sse.addEventListener('error', listener2);
+
+      const listeners = proxy.getEventListeners();
+
+      expect(listeners.length).toBe(2);
+      expect(listeners).toContain(listener1);
+      expect(listeners).toContain(listener2);
+    });
+
+    it('should get register listeners for given event type', () => {
+      const listener1 = jasmine.createSpy('listener1');
+      const listener2 = jasmine.createSpy('listener2');
+      const listener3 = jasmine.createSpy('listener3');
+
+      sse.addEventListener('open', listener1);
+      sse.addEventListener('error', listener2);
+      sse.addEventListener('error', listener3);
+
+      const listeners = proxy.getEventListeners('error');
+
+      expect(listeners).toEqual([listener2, listener3]);
+    });
+
+    it('should get empty array if there is not registered listener', () => {
+      expect(proxy.getEventListeners()).toEqual([]);
+    });
+
+    it('should get empty array if there is not registered listener for given event type', () => {
+      sse.addEventListener('open', jasmine.createSpy('listener1'));
+      expect(proxy.getEventListeners('error')).toEqual([]);
+    });
+
     describe('once opened', () => {
       beforeEach(() => {
         proxy.emit('open connection');

@@ -22,22 +22,19 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './flatten.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './map.test.js';
-import './parse-url.test.js';
-import './tag-name.test.js';
-import './values.test.js';
+import {values} from '../../../src/core/common/values.js';
+
+describe('values', () => {
+  it('should get object values', () => {
+    const object = {
+      id: 1,
+      name: 'John Doe',
+    };
+
+    const results = values(object);
+
+    expect(results.length).toBe(2);
+    expect(results).toContain(1);
+    expect(results).toContain('John Doe');
+  });
+});
