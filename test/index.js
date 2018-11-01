@@ -23,4 +23,5 @@
  */
 
 import './core/index.js';
+import './jasmine-sse.test.js';
 import './after-each.js';
