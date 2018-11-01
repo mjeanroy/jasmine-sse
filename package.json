@@ -7,6 +7,7 @@
     "lint": "gulp lint",
     "tdd": "gulp tdd",
     "test": "gulp test",
+    "travis": "gulp test",
     "start": "node sample/server.js"
   },
   "keywords": [
