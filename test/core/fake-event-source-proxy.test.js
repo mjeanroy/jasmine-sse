@@ -196,6 +196,25 @@ describe('FakeEventSource', () => {
       ));
     });
 
+    it('should fail the connection', () => {
+      const onErrorListener = jasmine.createSpy('onErrorListener');
+      const onerror = jasmine.createSpy('onerror');
+
+      proxy.onerror = onerror;
+      proxy.addEventListener('error', onErrorListener);
+      proxy.failConnection();
+
+      expect(proxy.readyState).toBe(2);
+      expect(onErrorListener).toHaveBeenCalledTimes(1);
+      expect(onerror).toHaveBeenCalledTimes(1);
+
+      const e1 = onErrorListener.calls.mostRecent().args[0];
+      const e2 = onerror.calls.mostRecent().args[0];
+      expect(e1).toBe(e2);
+      expect(e1.type).toBe('error');
+      expect(e1.target).toBe(sse);
+    });
+
     describe('once opened', () => {
       beforeEach(() => {
         proxy.emit('open connection');
@@ -229,6 +248,19 @@ describe('FakeEventSource', () => {
         expect(() => proxy.emit('test')).toThrow(new Error(
             `Failed to emit message on 'EventSource': The connection state is CLOSED.`
         ));
+      });
+
+      it('should not fail the connection', () => {
+        const onErrorListener = jasmine.createSpy('onErrorListener');
+        const onerror = jasmine.createSpy('onerror');
+
+        proxy.onerror = onerror;
+        proxy.addEventListener('error', onErrorListener);
+        proxy.failConnection();
+
+        expect(proxy.readyState).toBe(2);
+        expect(onErrorListener).not.toHaveBeenCalled();
+        expect(onerror).not.toHaveBeenCalled();
       });
     });
   });

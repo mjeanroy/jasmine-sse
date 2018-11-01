@@ -204,7 +204,7 @@ s     *
       }
 
       if (this._eventSource._readyState === CONNECTING) {
-        this._announceConnection();
+        this._eventSource._announceConnection();
       }
 
       this._eventSource.dispatchEvent(
@@ -213,12 +213,15 @@ s     *
     }
 
     /**
-     * Announce the open connection on the SSE connection.
+     * Fail the `EventSource` connection.
      *
      * @return {void}
+     * @see https://html.spec.whatwg.org/multipage/server-sent-events.html#fail-the-connection
      */
-    _announceConnection() {
-      this._eventSource._announceConnection();
+    failConnection() {
+      if (this._eventSource.readyState !== CLOSED) {
+        this._eventSource._failConnection();
+      }
     }
   }
 

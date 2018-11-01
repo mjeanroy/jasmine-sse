@@ -245,6 +245,18 @@ export const fakeEventSourceFactory = factory(() => {
           new FakeEvent('open', this)
       );
     }
+
+    /**
+     * Fail the `EventSource` connection.
+     *
+     * @return {void}
+     */
+    _failConnection() {
+      this._readyState = CLOSED;
+      this.dispatchEvent(
+          new FakeEvent('error', this)
+      );
+    }
   }
 
   FakeEventSource.CONNECTING = CONNECTING;
