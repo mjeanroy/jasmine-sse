@@ -1,8 +1,12 @@
 {
   "name": "jasmine-sse",
   "version": "0.0.0",
-  "description": "",
+  "description": "Test your Server-Sent-Event application with jasmine",
   "main": "dist/jasmine-sse.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mjeanroy/jasmine-sse.git"
+  },
   "scripts": {
     "clean": "gulp clean",
     "lint": "gulp lint",
@@ -10,7 +14,11 @@
     "tdd": "gulp tdd",
     "test": "gulp test",
     "travis": "gulp travis",
-    "start": "node sample/server.js"
+    "start": "node sample/server.js",
+    "release:major": "gulp release:major",
+    "release:minor": "gulp release:minor",
+    "release:patch": "gulp release:patch",
+    "release": "gulp release:minor"
   },
   "keywords": [
     "Jasmine",
@@ -30,7 +38,10 @@
     "express-sse": "0.5.0",
     "fancy-log": "1.3.2",
     "gulp": "3.9.1",
+    "gulp-bump": "3.1.1",
     "gulp-eslint": "5.0.0",
+    "gulp-git": "2.8.0",
+    "gulp-tag-version": "1.3.1",
     "jasmine-core": "3.3.0",
     "karma": "3.1.1",
     "karma-babel-preprocessor": "8.0.0-beta.0",
