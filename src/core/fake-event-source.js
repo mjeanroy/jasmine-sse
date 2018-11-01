@@ -29,10 +29,13 @@ import {indexOf} from './common/index-of.js';
 import {isFunction} from './common/is-function.js';
 import {factory} from './common/factory.js';
 import {parseUrl} from './common/parse-url.js';
+import {fakeEventFactory} from './fake-event.js';
 import {CONNECTING, OPEN, CLOSED} from './event-source-state.js';
 import {NONE, AT_TARGET} from './event-states.js';
 
 export const fakeEventSourceFactory = factory(() => {
+  const FakeEvent = fakeEventFactory();
+
   /**
    * The fake `EventSource` implementation.
    *
@@ -220,6 +223,18 @@ export const fakeEventSourceFactory = factory(() => {
         console.error(e);
         console.error(e.stack);
       }
+    }
+
+    /**
+     * Announce the open connection on the SSE connection.
+     *
+     * @return {void}
+     */
+    _announceConnection() {
+      this._readyState = OPEN;
+      this.dispatchEvent(
+          new FakeEvent('open', this)
+      );
     }
   }
 

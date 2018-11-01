@@ -27,12 +27,10 @@ import {isFunction} from './common/is-function.js';
 import {isNil} from './common/is-nil.js';
 import {isObject} from './common/is-object.js';
 import {factory} from './common/factory.js';
-import {fakeEventFactory} from './fake-event.js';
 import {fakeMessageEventFactory} from './fake-message-event.js';
 import {CONNECTING, OPEN, CLOSED} from './event-source-state.js';
 
 export const fakeEventSourceProxyFactory = factory(() => {
-  const FakeEvent = fakeEventFactory();
   const FakeMessageEvent = fakeMessageEventFactory();
 
   /**
@@ -211,8 +209,7 @@ s     *
      * @return {void}
      */
     _announceConnection() {
-      this._eventSource._readyState = OPEN;
-      this._eventSource.dispatchEvent(new FakeEvent('open', this._eventSource));
+      this._eventSource._announceConnection();
     }
   }
 
