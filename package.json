@@ -1,8 +1,12 @@
 {
   "name": "jasmine-sse",
   "version": "0.0.0",
-  "description": "",
+  "description": "Test your Server-Sent-Event application with jasmine",
   "main": "dist/jasmine-sse.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mjeanroy/jasmine-sse.git"
+  },
   "scripts": {
     "clean": "gulp clean",
     "lint": "gulp lint",
