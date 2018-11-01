@@ -30,6 +30,7 @@ import {isFunction} from './common/is-function.js';
 import {factory} from './common/factory.js';
 import {parseUrl} from './common/parse-url.js';
 import {fakeEventFactory} from './fake-event.js';
+import {track} from './sse-tracker.js';
 import {CONNECTING, OPEN, CLOSED} from './event-source-state.js';
 import {NONE, AT_TARGET} from './event-states.js';
 
@@ -84,6 +85,9 @@ export const fakeEventSourceFactory = factory(() => {
       this.onopen = null;
       this.onmessage = null;
       this.onerror = null;
+
+      // Track connection.
+      track(this);
     }
 
     /**

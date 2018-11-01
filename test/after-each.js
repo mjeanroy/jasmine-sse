@@ -22,5 +22,8 @@
  * THE SOFTWARE.
  */
 
-import './core/index.js';
-import './after-each.js';
+import {reset} from '../src/core/sse-tracker.js';
+
+afterEach(() => {
+  reset();
+});
