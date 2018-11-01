@@ -25,11 +25,18 @@
 const path = require('path');
 const log = require('fancy-log');
 const colors = require('ansi-colors');
+const del = require('del');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const karma = require('karma');
+const rollup = require('rollup');
 
 const conf = require('./conf');
+const rollupConf = require('./rollup.conf');
+
+gulp.task('clean', () => (
+  del(conf.dist)
+));
 
 gulp.task('lint', () => {
   const inputs = [
@@ -52,6 +59,10 @@ gulp.task('test', ['lint'], (done) => {
 gulp.task('tdd', (done) => {
   startKarma('tdd', done);
 });
+
+gulp.task('build', ['clean', 'lint'], () => (
+  rollup.rollup(rollupConf).then((bundle) => bundle.write(rollupConf.output))
+));
 
 /**
  * Start Karma Server and run unit tests.
