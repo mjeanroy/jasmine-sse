@@ -1,6 +1,6 @@
 {
   "name": "jasmine-sse",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Test your Server-Sent-Event application with jasmine",
   "main": "dist/jasmine-sse.js",
   "repository": {
