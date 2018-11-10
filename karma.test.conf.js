@@ -33,8 +33,15 @@ module.exports = (config) => {
   config.set(_.extend(karmaConf(config), {
     autoWatch: false,
     singleRun: true,
-    browsers: ['CustomHeadlessChrome'],
-    reporters: ['progress'],
+
+    browsers: [
+      'CustomHeadlessChrome',
+      'PhantomJS',
+    ],
+
+    reporters: [
+      'progress',
+    ],
 
     customLaunchers: {
       CustomHeadlessChrome: {

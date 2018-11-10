@@ -168,13 +168,34 @@ function polyfillUrl(url) {
 }
 
 /**
+ * Ensure that given URL is valid with expected values.
+ *
+ * @param {URL} url The URL.
+ * @param {string} protocol The expected protocol part.
+ * @param {string} hostname The expected hostname part.
+ * @param {string} port The expected port part.
+ * @param {string} pathname The expected pathname part.
+ * @param {string} search The expected search part.
+ * @return {boolean} `true` if `url` has expected settings, `false` otherwise.
+ */
+function ensureUrl(url, protocol, hostname, port, pathname, search) {
+  return url !== null &&
+      url.protocol === protocol &&
+      url.hostname === hostname &&
+      url.port === port &&
+      url.host === `${hostname}:${port}` &&
+      url.pathname === pathname;
+}
+
+/**
  * Check for `URL` support in current environment.
  *
  * @return {boolean} `true` if `URL` supported, `false` otherwise.
  */
 function checkUrlSupport() {
   try {
-    return new URL('http://localhost') !== null;
+    const url = new URL('http://localhost:8080/test?q') !== null;
+    return ensureUrl(url, 'http:', 'localhost', '8080', '/test', '?q');
   } catch (e) {
     return false;
   }
