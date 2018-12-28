@@ -22,24 +22,35 @@
  * THE SOFTWARE.
  */
 
-const gulp = require('gulp');
-const clean = require('./scripts/clean');
-const lint = require('./scripts/lint');
-const build = require('./scripts/build');
-const test = require('./scripts/test');
-const release = require('./scripts/release');
+/**
+ * Karma Configuration, mainly used on CI environement.
+ */
 
-const prebuild = gulp.series(clean, lint);
-const prerelease = gulp.series(prebuild, test.travis, build);
+const _ = require('lodash');
+const karmaConf = require('./karma.common.conf');
 
-module.exports = {
-  'clean': clean,
-  'lint': lint,
-  'build': gulp.series(prebuild, build),
-  'tdd': test.tdd,
-  'test': gulp.series(lint, test.test),
-  'travis': gulp.series(lint, test.travis),
-  'release:patch': gulp.series(prerelease, release.patch),
-  'release:minor': gulp.series(prerelease, release.minor),
-  'release:major': gulp.series(prerelease, release.major),
+module.exports = (config) => {
+  config.set(_.extend(karmaConf(config), {
+    autoWatch: false,
+    singleRun: true,
+
+    browsers: [
+      'CustomHeadlessChrome',
+      'PhantomJS',
+    ],
+
+    reporters: [
+      'progress',
+    ],
+
+    customLaunchers: {
+      CustomHeadlessChrome: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--disable-translate',
+          '--disable-extensions',
+        ],
+      },
+    },
+  }));
 };

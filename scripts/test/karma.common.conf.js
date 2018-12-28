@@ -27,18 +27,19 @@
  */
 
 const path = require('path');
-const conf = require('./conf');
+const conf = require('../config');
+const entryPoint = path.join(conf.test, 'index.js');
 
 module.exports = (config) => ({
   // base path, that will be used to resolve files and exclude
-  basePath: '.',
+  basePath: conf.root,
 
   frameworks: [
     'jasmine',
   ],
 
   files: [
-    path.join(conf.test, 'index.js'),
+    entryPoint,
   ],
 
   exclude: [
@@ -97,7 +98,7 @@ module.exports = (config) => ({
   reportSlowerThan: 500,
 
   preprocessors: {
-    'test/**/*.js': ['rollup', 'babel'],
+    [entryPoint]: ['rollup', 'babel'],
   },
 
   // Rollup test configuration

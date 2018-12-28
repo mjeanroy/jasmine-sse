@@ -22,35 +22,14 @@
  * THE SOFTWARE.
  */
 
-/**
- * Karma Configuration, mainly used on CI environement.
- */
+const path = require('path');
+const ROOT = path.join(__dirname, '..');
 
-const _ = require('lodash');
-const karmaConf = require('./karma.common.conf.js');
-
-module.exports = (config) => {
-  config.set(_.extend(karmaConf(config), {
-    autoWatch: false,
-    singleRun: true,
-
-    browsers: [
-      'CustomHeadlessChrome',
-      'PhantomJS',
-    ],
-
-    reporters: [
-      'progress',
-    ],
-
-    customLaunchers: {
-      CustomHeadlessChrome: {
-        base: 'ChromeHeadless',
-        flags: [
-          '--disable-translate',
-          '--disable-extensions',
-        ],
-      },
-    },
-  }));
+module.exports = {
+  root: ROOT,
+  src: path.join(ROOT, 'src'),
+  test: path.join(ROOT, 'test'),
+  dist: path.join(ROOT, 'dist'),
+  sample: path.join(ROOT, 'sample'),
+  scripts: path.join(ROOT, 'scripts'),
 };

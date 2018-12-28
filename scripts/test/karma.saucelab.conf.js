@@ -27,19 +27,9 @@
  */
 
 const _ = require('lodash');
-const karmaConf = require('./karma.common.conf.js');
+const karmaConf = require('./karma.common.conf');
 
 const browsers = {
-  SL_chrome: {
-    base: 'SauceLabs',
-    browserName: 'chrome',
-  },
-
-  SL_firefox: {
-    base: 'SauceLabs',
-    browserName: 'firefox',
-  },
-
   SL_safari_8: {
     base: 'SauceLabs',
     browserName: 'safari',
@@ -64,10 +54,40 @@ const browsers = {
     version: '11.0',
   },
 
-  SL_safari_12: {
+  SL_Win10_edge: {
     base: 'SauceLabs',
-    browserName: 'safari',
-    version: '12.0',
+    browserName: 'microsoftedge',
+    platform: 'Windows 10',
+  },
+
+  SL_Win10_ie_11: {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    platform: 'Windows 10',
+    version: '11',
+  },
+
+  SL_ie_10: {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    platform: 'Windows 8',
+    version: '10',
+  },
+
+  SL_ie_9: {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    version: '9',
+  },
+
+  SL_chrome: {
+    base: 'SauceLabs',
+    browserName: 'chrome',
+  },
+
+  SL_firefox: {
+    base: 'SauceLabs',
+    browserName: 'firefox',
   },
 };
 

@@ -22,24 +22,22 @@
  * THE SOFTWARE.
  */
 
+const path = require('path');
 const gulp = require('gulp');
-const clean = require('./scripts/clean');
-const lint = require('./scripts/lint');
-const build = require('./scripts/build');
-const test = require('./scripts/test');
-const release = require('./scripts/release');
+const eslint = require('gulp-eslint');
+const config = require('../config');
 
-const prebuild = gulp.series(clean, lint);
-const prerelease = gulp.series(prebuild, test.travis, build);
+module.exports = function lint() {
+  const inputs = [
+    path.join(config.root, '*.js'),
+    path.join(config.src, '**', '*.js'),
+    path.join(config.test, '**', '*.js'),
+    path.join(config.sample, '**', '*.js'),
+    path.join(config.scripts, '**', '*.js'),
+  ];
 
-module.exports = {
-  'clean': clean,
-  'lint': lint,
-  'build': gulp.series(prebuild, build),
-  'tdd': test.tdd,
-  'test': gulp.series(lint, test.test),
-  'travis': gulp.series(lint, test.travis),
-  'release:patch': gulp.series(prerelease, release.patch),
-  'release:minor': gulp.series(prerelease, release.minor),
-  'release:major': gulp.series(prerelease, release.major),
+  return gulp.src(inputs)
+      .pipe(eslint())
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError());
 };

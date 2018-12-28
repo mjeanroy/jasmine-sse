@@ -27,7 +27,7 @@
  */
 
 const _ = require('lodash');
-const karmaConf = require('./karma.common.conf.js');
+const karmaConf = require('./karma.common.conf');
 
 module.exports = (config) => {
   config.set(_.extend(karmaConf(config), {

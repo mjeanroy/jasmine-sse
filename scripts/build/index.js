@@ -22,13 +22,11 @@
  * THE SOFTWARE.
  */
 
-const path = require('path');
-const ROOT = __dirname;
+const rollup = require('rollup');
+const rollupConf = require('./rollup.conf.js');
 
-module.exports = {
-  root: ROOT,
-  src: path.join(ROOT, 'src'),
-  test: path.join(ROOT, 'test'),
-  dist: path.join(ROOT, 'dist'),
-  sample: path.join(ROOT, 'sample'),
+module.exports = function build() {
+  return rollup.rollup(rollupConf).then((bundleFile) => (
+    bundleFile.write(rollupConf.output)
+  ));
 };

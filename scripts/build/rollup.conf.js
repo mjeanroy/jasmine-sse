@@ -27,13 +27,13 @@ const babel = require('rollup-plugin-babel');
 const stripBanner = require('rollup-plugin-strip-banner');
 const license = require('rollup-plugin-license');
 const esformatter = require('rollup-plugin-esformatter');
-const conf = require('./conf');
+const config = require('../config');
 
 module.exports = {
-  input: path.join(conf.src, 'jasmine-sse.js'),
+  input: path.join(config.src, 'jasmine-sse.js'),
 
   output: {
-    file: path.join(conf.dist, 'jasmine-sse.js'),
+    file: path.join(config.dist, 'jasmine-sse.js'),
     format: 'iife',
     name: 'JasmineSSE',
     sourcemap: false,
@@ -45,7 +45,7 @@ module.exports = {
     esformatter(),
     license({
       banner: {
-        file: path.join(conf.root, 'LICENSE'),
+        file: path.join(config.root, 'LICENSE'),
       },
     }),
   ],
