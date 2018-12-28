@@ -54,12 +54,6 @@ const browsers = {
     version: '11.0',
   },
 
-  SL_safari_12: {
-    base: 'SauceLabs',
-    browserName: 'safari',
-    version: '12.0',
-  },
-
   SL_chrome: {
     base: 'SauceLabs',
     browserName: 'chrome',
