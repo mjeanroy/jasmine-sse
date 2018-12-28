@@ -54,30 +54,10 @@ const browsers = {
     version: '11.0',
   },
 
-  SL_Win10_edge: {
+  SL_safari_12: {
     base: 'SauceLabs',
-    browserName: 'microsoftedge',
-    platform: 'Windows 10',
-  },
-
-  SL_Win10_ie_11: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    platform: 'Windows 10',
-    version: '11',
-  },
-
-  SL_ie_10: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    platform: 'Windows 8',
-    version: '10',
-  },
-
-  SL_ie_9: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    version: '9',
+    browserName: 'safari',
+    version: '12.0',
   },
 
   SL_chrome: {
