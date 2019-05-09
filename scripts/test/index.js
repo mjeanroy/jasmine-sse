@@ -87,6 +87,10 @@ function runKarma(mode, done) {
   const fileName = `karma.${mode}.conf.js`;
   const configFile = path.join(__dirname, fileName);
   const srv = new karma.Server({configFile}, (err) => {
+    if (err) {
+      console.log('Error with karma: ', err);
+    }
+
     log(colors.grey('Calling done callback of Karma'));
     done(err);
   });

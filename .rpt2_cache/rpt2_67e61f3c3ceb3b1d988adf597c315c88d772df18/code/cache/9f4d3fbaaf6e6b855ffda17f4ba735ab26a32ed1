@@ -1,0 +1,1 @@
+{"code":"export var ObjectProto = Object.prototype;\r\n//# sourceMappingURL=object-proto.js.map","map":"{\"version\":3,\"file\":\"object-proto.js\",\"sourceRoot\":\"\",\"sources\":[\"../../../../../src/core/common/object-proto.ts\"],\"names\":[],\"mappings\":\"AA4BA,MAAM,CAAC,IAAM,WAAW,GAAW,MAAM,CAAC,SAAS,CAAC\"}"}

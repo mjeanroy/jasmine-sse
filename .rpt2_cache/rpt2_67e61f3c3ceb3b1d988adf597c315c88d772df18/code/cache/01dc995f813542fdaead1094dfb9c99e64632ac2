@@ -1,0 +1,1 @@
+{"code":"export function keys(object) {\r\n    return Object.keys(object);\r\n}\r\n//# sourceMappingURL=keys.js.map","map":"{\"version\":3,\"file\":\"keys.js\",\"sourceRoot\":\"\",\"sources\":[\"../../../../../src/core/common/keys.ts\"],\"names\":[],\"mappings\":\"AA8BA,MAAM,UAAU,IAAI,CAAC,MAAc;IACjC,OAAO,MAAM,CAAC,IAAI,CAAC,MAAM,CAAC,CAAC;AAC7B,CAAC\"}"}

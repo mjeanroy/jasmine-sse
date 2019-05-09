@@ -27,8 +27,9 @@
  */
 
 const path = require('path');
+const typescript = require('rollup-plugin-typescript2');
 const conf = require('../config');
-const entryPoint = path.join(conf.test, 'index.js');
+const entryPoint = path.join(conf.test, 'index.ts');
 
 module.exports = (config) => ({
   // base path, that will be used to resolve files and exclude
@@ -98,7 +99,7 @@ module.exports = (config) => ({
   reportSlowerThan: 500,
 
   preprocessors: {
-    [entryPoint]: ['rollup', 'babel'],
+    [entryPoint]: ['rollup'],
   },
 
   // Rollup test configuration
@@ -108,5 +109,9 @@ module.exports = (config) => ({
       name: 'JasmineSSE',
       sourcemap: false,
     },
+
+    plugins: [
+      typescript(),
+    ],
   },
 });
