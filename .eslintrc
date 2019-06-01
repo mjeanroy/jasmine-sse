@@ -1,23 +1,35 @@
 {
-    "extends": "google",
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module"
-    },
-    "rules": {
-      "max-len": [2, 120, 2],
-      "valid-jsdoc": [2, {
-        "requireReturn": true,
-        "requireParamDescription": true,
-        "requireReturnDescription": true,
-        "prefer": {
-          "return": "return",
-          "arg": "param",
-          "argument": "param"
-        },
-        "preferType": {
-          "object": "object"
-        }
-      }]
-    }
+  "extends": [
+    "eslint:recommended",
+    "google"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jasmine": true,
+    "node": false
+  },
+  "rules": {
+    "max-len": [2, 120, 2],
+    "no-console": ["error", {
+      "allow": ["warn", "error"]
+    }],
+    "valid-jsdoc": [2, {
+      "requireReturn": true,
+      "requireParamDescription": true,
+      "requireReturnDescription": true,
+      "prefer": {
+        "return": "return",
+        "arg": "param",
+        "argument": "param"
+      },
+      "preferType": {
+        "object": "object"
+      }
+    }]
   }
+}

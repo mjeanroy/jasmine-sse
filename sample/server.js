@@ -22,6 +22,9 @@
  * THE SOFTWARE.
  */
 
+/* eslint-env node */
+/* eslint-disable no-console */
+
 const express = require('express');
 const app = express();
 const SSE = require('express-sse');

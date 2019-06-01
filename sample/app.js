@@ -25,6 +25,7 @@
 /* eslint-disable no-var */
 /* eslint-disable no-invalid-this */
 /* eslint-disable require-jsdoc */
+/* eslint-disable no-console */
 
 (function() {
   var $output = document.getElementById('output');

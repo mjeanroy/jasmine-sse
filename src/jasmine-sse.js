@@ -25,6 +25,7 @@
 import {fakeEventSourceFactory} from './core/fake-event-source.js';
 import {sseTracker, reset} from './core/sse-tracker.js';
 
+// eslint-disable-next-line no-undef
 const GLOBAL = window || global;
 const EVENT_SOURCE = GLOBAL.EventSource || null;
 
