@@ -29,7 +29,7 @@
   "devDependencies": {
     "@babel/core": "7.4.5",
     "@babel/preset-env": "7.4.5",
-    "ansi-colors": "4.0.1",
+    "ansi-colors": "4.1.0",
     "body-parser": "1.19.0",
     "del": "4.1.1",
     "eslint": "6.0.1",
