@@ -45,7 +45,9 @@ module.exports = {
     esformatter(),
     license({
       banner: {
-        file: path.join(config.root, 'LICENSE'),
+        content: {
+          file: path.join(config.root, 'LICENSE'),
+        },
       },
     }),
   ],
