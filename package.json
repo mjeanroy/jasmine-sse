@@ -27,7 +27,7 @@
   "author": "Mickael Jeanroy",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.6.4",
+    "@babel/core": "7.7.2",
     "@babel/preset-env": "7.6.3",
     "ansi-colors": "4.1.1",
     "body-parser": "1.19.0",
