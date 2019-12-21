@@ -127,5 +127,22 @@ describe('jasmine-sse', () => {
       expect(sse.onopen).toHaveBeenCalledTimes(1);
       expect(sse.onmessage).toHaveBeenCalledTimes(1);
     });
+
+    it('should receive data with message origin', () => {
+      const sse = new EventSource('/stream');
+
+      sse.onopen = jasmine.createSpy('onopen');
+      sse.onmessage = jasmine.createSpy('onmessage').and.callFake((e) => {
+        expect(e.origin).toBe('http://localhost:9876');
+      });
+
+      const connection = jasmine.sse().connections().first();
+      expect(connection.url).toBe('http://localhost:9876/stream');
+      expect(connection.onmessage).not.toHaveBeenCalled();
+
+      connection.emit('test');
+
+      expect(sse.onmessage).toHaveBeenCalledTimes(1);
+    });
   });
 });
