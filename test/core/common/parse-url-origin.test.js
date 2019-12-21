@@ -22,23 +22,30 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './flatten.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './map.test.js';
-import './parse-url.test.js';
-import './parse-url-origin.test.js';
-import './tag-name.test.js';
-import './values.test.js';
+import {parseUrlOrigin} from '../../../src/core/common/parse-url-origin.js';
+
+describe('parseUrlOrigin', () => {
+  it('should get URL origin', () => {
+    const input = 'http://localhost:9200';
+    const origin = parseUrlOrigin(input);
+    expect(origin).toBe('http://localhost:9200');
+  });
+
+  it('should get origin from URL with a path', () => {
+    const input = 'http://localhost:9200/path';
+    const origin = parseUrlOrigin(input);
+    expect(origin).toBe('http://localhost:9200');
+  });
+
+  it('should get origin from URL with query parameters', () => {
+    const input = 'http://localhost:9200/path?x';
+    const origin = parseUrlOrigin(input);
+    expect(origin).toBe('http://localhost:9200');
+  });
+
+  it('should get origin from URL without port', () => {
+    const input = 'http://localhost';
+    const origin = parseUrlOrigin(input);
+    expect(origin).toBe('http://localhost');
+  });
+});

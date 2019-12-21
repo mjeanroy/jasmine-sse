@@ -55,9 +55,15 @@ describe('FakeMessageEvent', () => {
 
     expect(event.data).toBe(data.data);
     expect(event.lastEventId).toBeDefined();
-    expect(event.origin).toBe('http://localhost:9876/stream');
     expect(event.source).toBeNull();
     expect(event.ports).toEqual([]);
+  });
+
+  it('should create the fake event with origin of given URL', () => {
+    const data = {type: 'message', id: '1', data: 'test'};
+    const target = new FakeEventSource('/stream');
+    const event = new FakeMessageEvent(data, target);
+    expect(event.origin).toBe('http://localhost:9876');
   });
 
   it('should create the fake event with custom type', () => {
@@ -81,7 +87,6 @@ describe('FakeMessageEvent', () => {
 
     expect(event.data).toBe(data.data);
     expect(event.lastEventId).toBeDefined();
-    expect(event.origin).toBe('http://localhost:9876/stream');
     expect(event.source).toBeNull();
     expect(event.ports).toEqual([]);
   });

@@ -22,6 +22,7 @@
  * THE SOFTWARE.
  */
 
+import {parseUrlOrigin} from './common/parse-url-origin.js';
 import {factory} from './common/factory.js';
 import {fakeEventFactory} from './fake-event.js';
 
@@ -45,7 +46,7 @@ export const fakeMessageEventFactory = factory(() => {
       super(data.type, target);
       this._data = data.data;
       this._lastEventId = data.id;
-      this._origin = target.url;
+      this._origin = parseUrlOrigin(target.url);
     }
 
     /**

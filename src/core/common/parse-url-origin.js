@@ -22,23 +22,15 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './flatten.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './map.test.js';
-import './parse-url.test.js';
-import './parse-url-origin.test.js';
-import './tag-name.test.js';
-import './values.test.js';
+import {parseUrl} from './parse-url.js';
+
+/**
+ * Parse URL and extract origin (protocol, host and port if provided).
+ *
+ * @param {string} url Given URL.
+ * @return {string} URL Origin.
+ */
+export function parseUrlOrigin(url) {
+  const parsedUrl = parseUrl(url);
+  return `${parsedUrl.protocol}//${parsedUrl.host}`;
+}
