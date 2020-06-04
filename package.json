@@ -54,7 +54,7 @@
     "karma-phantomjs-launcher": "1.0.4",
     "karma-rollup-preprocessor": "7.0.5",
     "karma-safari-launcher": "1.0.0",
-    "karma-sauce-launcher": "1.2.0",
+    "karma-sauce-launcher": "4.1.5",
     "lodash": "4.17.15",
     "phantomjs-prebuilt": "2.1.16",
     "querystring": "0.2.0",
