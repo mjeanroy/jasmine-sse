@@ -22,18 +22,31 @@
 # THE SOFTWARE.
 ##
 
-/.babelrc
-/.eslintignore
-/.eslintrc
-/.github
-/.nvmrc
-/.travis.yml
-/conf.js
-/gulpfile.js
-/karma.*.conf.js
-/rollup.conf.js
-/sample
-/src
-/test
-/scripts
-npm-debug.log
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node: [ 14 ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        name: Set up NodeJS
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install
+        run: npm install
+      - uses: saucelabs/sauce-connect-action@master
+        with:
+          username: ${{ secrets.SAUCE_USERNAME }}
+          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+          scVersion: 4.6.2
+          tunnelIdentifier: github-action-tunnel
+      - name: Test
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        run: npm test

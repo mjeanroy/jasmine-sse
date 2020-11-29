@@ -13,7 +13,6 @@
     "build": "gulp build",
     "tdd": "gulp tdd",
     "test": "gulp test",
-    "travis": "gulp travis",
     "start": "node sample/server.js",
     "release:major": "gulp release:major",
     "release:minor": "gulp release:minor",

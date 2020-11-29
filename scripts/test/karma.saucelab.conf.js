@@ -34,34 +34,42 @@ const browsers = {
     base: 'SauceLabs',
     browserName: 'safari',
     version: '8.0',
+    platform: 'OS X 10.10',
   },
 
   SL_safari_9: {
     base: 'SauceLabs',
     browserName: 'safari',
     version: '9.0',
+    platform: 'OS X 10.11',
   },
 
   SL_safari_10: {
     base: 'SauceLabs',
     browserName: 'safari',
     version: '10.0',
+    platform: 'OS X 10.11',
   },
 
   SL_safari_11: {
     base: 'SauceLabs',
     browserName: 'safari',
     version: '11.0',
+    platform: 'macOS 10.12',
   },
 
   SL_chrome: {
     base: 'SauceLabs',
     browserName: 'chrome',
+    version: 'latest',
+    platform: 'Windows 10',
   },
 
   SL_firefox: {
     base: 'SauceLabs',
     browserName: 'firefox',
+    version: 'latest',
+    platform: 'Windows 10',
   },
 };
 
@@ -96,10 +104,71 @@ module.exports = (config) => {
       },
     }),
 
-    sauceLabs: {
-      build: `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`,
-      startConnect: false,
-      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-    },
+    sauceLabs: sauceLabsConfiguration(),
   }));
 };
+
+/**
+ * Create karma saucelabs configuration: detect environment (travis / github actions / local) and
+ * create appropriate configuration.
+ *
+ * @return {Object} Sauce Labs configuration.
+ */
+function sauceLabsConfiguration() {
+  if (process.env.TRAVIS_JOB_NUMBER) {
+    return travisSauceLabsConfiguration;
+  }
+
+  if (process.env.GITHUB_RUN_ID && process.env.GITHUB_RUN_NUMBER) {
+    return githubSauceLabsConfiguration();
+  }
+
+  return localSauceLabsConfiguration();
+}
+
+/**
+ * Create karma saucelabs configuration for travis-ci.com.
+ *
+ * Use travis environment variable (described here: https://docs.travis-ci.com/user/environment-variables/) to set
+ * appropriate build ID and tunnel identifier.
+ *
+ * @return {Object} Sauce Labs configuration.
+ */
+function travisSauceLabsConfiguration() {
+  return {
+    build: `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`,
+    startConnect: false,
+    tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+  };
+}
+
+/**
+ * Create karma saucelabs configuration for GitHub Actions.
+ *
+ * Use GitHub environment variable (described here:
+ *   https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables)
+ *
+ * to set appropriate build ID and tunnel identifier.
+ *
+ * @return {Object} Sauce Labs configuration.
+ */
+function githubSauceLabsConfiguration() {
+  return {
+    build: `GITHUB #${process.env.GITHUB_RUN_ID} (${process.env.GITHUB_RUN_NUMBER})`,
+    startConnect: false,
+    tunnelIdentifier: 'github-action-tunnel',
+  };
+}
+
+/**
+ * Create karma saucelabs configuration for local environment.
+ *
+ * @return {Object} Sauce Labs configuration.
+ */
+function localSauceLabsConfiguration() {
+  return {
+    build: `LOCAL #${Date.now()}`,
+    startConnect: false,
+    tunnelIdentifier: `${Date.now()}`,
+  };
+}
