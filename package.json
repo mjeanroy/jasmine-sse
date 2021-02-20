@@ -58,7 +58,7 @@
     "lodash": "4.17.20",
     "phantomjs-prebuilt": "2.1.16",
     "querystring": "0.2.0",
-    "rollup": "2.38.5",
+    "rollup": "2.39.0",
     "rollup-plugin-esformatter": "2.0.1",
     "rollup-plugin-license": "2.2.0",
     "rollup-plugin-strip-banner": "2.0.0"
