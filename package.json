@@ -26,7 +26,7 @@
   "author": "Mickael Jeanroy",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.12.17",
+    "@babel/core": "7.13.1",
     "@babel/preset-env": "7.12.17",
     "@rollup/plugin-babel": "5.2.3",
     "ansi-colors": "4.1.1",
