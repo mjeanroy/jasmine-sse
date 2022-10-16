@@ -27,6 +27,7 @@
 /.eslintrc
 /.github
 /.idea
+/.npmrc
 /.nvmrc
 /.travis.yml
 /conf.js
