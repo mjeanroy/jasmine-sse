@@ -26,6 +26,7 @@
 /.eslintignore
 /.eslintrc
 /.github
+/.idea
 /.nvmrc
 /.travis.yml
 /conf.js
@@ -36,4 +37,5 @@
 /src
 /test
 /scripts
+/*.iml
 npm-debug.log
