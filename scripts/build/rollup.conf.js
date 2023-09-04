@@ -40,7 +40,9 @@ module.exports = {
   },
 
   plugins: [
-    babel(),
+    babel({
+      babelHelpers: 'bundled',
+    }),
     stripBanner(),
     esformatter(),
     license({
