@@ -26,7 +26,7 @@
  * Karma Configuration.
  */
 
-const path = require('path');
+const path = require('node:path');
 const conf = require('../config');
 const entryPoint = path.join(conf.test, 'index.js');
 

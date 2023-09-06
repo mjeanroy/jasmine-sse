@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-const path = require('path');
+const path = require('node:path');
 const colors = require('ansi-colors');
 const log = require('fancy-log');
 const karma = require('karma');

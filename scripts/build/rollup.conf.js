@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-const path = require('path');
+const path = require('node:path');
 const babel = require('@rollup/plugin-babel').default;
 const stripBanner = require('rollup-plugin-strip-banner');
 const license = require('rollup-plugin-license');

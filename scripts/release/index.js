@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
+const path = require('node:path');
 const gulp = require('gulp');
-const path = require('path');
 const bump = require('gulp-bump');
 const git = require('gulp-git');
 const tagVersion = require('gulp-tag-version');
