@@ -76,6 +76,15 @@ const browsers = {
 
 module.exports = (config) => {
   config.set(_.extend(karmaConf(config), {
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-rollup-preprocessor'),
+      require('karma-babel-preprocessor'),
+      require('karma-chrome-launcher'),
+      require('karma-phantomjs-launcher'),
+      require('karma-sauce-launcher'),
+    ],
+
     autoWatch: false,
     singleRun: true,
 
