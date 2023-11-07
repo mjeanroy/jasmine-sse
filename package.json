@@ -54,7 +54,7 @@
     "phantomjs-prebuilt": "2.1.16",
     "querystring": "0.2.1",
     "rimraf": "5.0.5",
-    "rollup": "4.2.0",
+    "rollup": "4.3.0",
     "rollup-plugin-esformatter": "3.1.0",
     "rollup-plugin-license": "3.2.0",
     "rollup-plugin-strip-banner": "3.1.0"
