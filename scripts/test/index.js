@@ -88,13 +88,13 @@ function runKarma(mode, done) {
   const configFilePath = path.join(__dirname, fileName);
 
   log(colors.grey(`Parsing karma configuration from: ${configFilePath}`));
-  karma.config.parseConfig(configFilePath, null, {promiseConfig: true, throwErrors: true}).then((config) => {
+  karma.config.parseConfig(configFilePath, null, { promiseConfig: true, throwErrors: true }).then((config) => {
     const srv = new karma.Server(config, (err) => {
       log(colors.grey('Calling done callback of Karma'));
       done(err);
     });
 
-    log(colors.grey(`Starting karma server`));
+    log(colors.grey('Starting karma server'));
     srv.start();
   });
 }

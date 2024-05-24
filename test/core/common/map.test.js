@@ -22,14 +22,14 @@
  * THE SOFTWARE.
  */
 
-import {map} from '../../../src/core/common/map.js';
+import { map } from '../../../src/core/common/map';
 
 describe('map', () => {
   it('should map elements of array', () => {
     const array = [2, 4, 6];
-    const iteratee = jasmine.createSpy().and.callFake((x) =>
+    const iteratee = jasmine.createSpy().and.callFake((x) => (
       x * x
-    );
+    ));
 
     const results = map(array, iteratee);
 

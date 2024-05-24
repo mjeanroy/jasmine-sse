@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {parseUrl} from '../../../src/core/common/parse-url.js';
+import { parseUrl } from '../../../src/core/common/parse-url';
 
 describe('parseUrl', () => {
   it('should parse given URL', () => {

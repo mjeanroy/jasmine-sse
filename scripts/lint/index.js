@@ -24,7 +24,7 @@
 
 const path = require('node:path');
 const fancyLog = require('fancy-log');
-const {ESLint} = require('eslint');
+const { ESLint } = require('eslint');
 const config = require('../config');
 
 module.exports = function lint() {

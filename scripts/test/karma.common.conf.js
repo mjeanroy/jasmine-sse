@@ -22,12 +22,15 @@
  * THE SOFTWARE.
  */
 
+/* eslint-disable global-require */
+
 /**
  * Karma Configuration.
  */
 
 const path = require('node:path');
 const conf = require('../config');
+
 const entryPoint = path.join(conf.test, 'index.js');
 
 module.exports = (config) => ({

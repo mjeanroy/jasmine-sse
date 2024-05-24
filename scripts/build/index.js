@@ -23,7 +23,7 @@
  */
 
 const rollup = require('rollup');
-const rollupConf = require('./rollup.conf.js');
+const rollupConf = require('./rollup.conf');
 
 module.exports = function build() {
   return rollup.rollup(rollupConf).then((bundleFile) => (

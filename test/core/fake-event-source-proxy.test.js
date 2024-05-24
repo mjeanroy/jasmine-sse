@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-import {fakeEventSourceFactory} from '../../src/core/fake-event-source.js';
-import {fakeEventSourceProxyFactory} from '../../src/core/fake-event-source-proxy.js';
+import { fakeEventSourceFactory } from '../../src/core/fake-event-source';
+import { fakeEventSourceProxyFactory } from '../../src/core/fake-event-source-proxy';
 
 describe('FakeEventSource', () => {
   let FakeEventSource;
@@ -116,7 +116,7 @@ describe('FakeEventSource', () => {
     });
 
     it('should dispatch event', () => {
-      const event = {type: 'open'};
+      const event = { type: 'open' };
 
       proxy.dispatchEvent(event);
 
@@ -157,7 +157,7 @@ describe('FakeEventSource', () => {
       const onOpenListener = jasmine.createSpy('onOpenListener');
       const onMessageListener = jasmine.createSpy('onMessageListener');
       const onCustomEventListener = jasmine.createSpy('onCustomEventListener');
-      const data = {type: 'customevent', data: 'test'};
+      const data = { type: 'customevent', data: 'test' };
 
       proxy.addEventListener('open', onOpenListener);
       proxy.addEventListener('message', onMessageListener);
@@ -180,19 +180,19 @@ describe('FakeEventSource', () => {
 
     it('should fail to emit null data', () => {
       expect(() => proxy.emit(null)).toThrow(new Error(
-          `Failed to emit message on 'EventSource': The message is null.`
+        "Failed to emit message on 'EventSource': The message is null.",
       ));
     });
 
     it('should fail to emit undefined data', () => {
       expect(() => proxy.emit(undefined)).toThrow(new Error(
-          `Failed to emit message on 'EventSource': The message is undefined.`
+        "Failed to emit message on 'EventSource': The message is undefined.",
       ));
     });
 
     it('should fail to emit function as data', () => {
       expect(() => proxy.emit(() => {})).toThrow(new Error(
-          `Failed to emit message on 'EventSource': The message is function () {}.`
+        "Failed to emit message on 'EventSource': The message is function () {}.",
       ));
     });
 
@@ -321,7 +321,7 @@ describe('FakeEventSource', () => {
 
       it('should fail to emit data', () => {
         expect(() => proxy.emit('test')).toThrow(new Error(
-            `Failed to emit message on 'EventSource': The connection state is CLOSED.`
+          "Failed to emit message on 'EventSource': The connection state is CLOSED.",
         ));
       });
 

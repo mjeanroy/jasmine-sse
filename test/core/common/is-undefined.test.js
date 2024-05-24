@@ -22,12 +22,13 @@
  * THE SOFTWARE.
  */
 
-import {isUndefined} from '../../../src/core/common/is-undefined.js';
+import { isUndefined } from '../../../src/core/common/is-undefined';
 
 describe('isUndefined', () => {
   it('should return true with undefined', () => {
-    expect(isUndefined(undefined)).toBe(true);
+    // eslint-disable-next-line no-void
     expect(isUndefined(void 0)).toBe(true);
+    expect(isUndefined(undefined)).toBe(true);
 
     expect(isUndefined(null)).toBe(false);
     expect(isUndefined(0)).toBe(false);

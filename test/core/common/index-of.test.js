@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {indexOf} from '../../../src/core/common/index-of.js';
+import { indexOf } from '../../../src/core/common/index-of';
 
 describe('indexOf', () => {
   it('should get index of elements in array', () => {

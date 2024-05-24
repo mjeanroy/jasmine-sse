@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 
-import {parseUrlOrigin} from './common/parse-url-origin.js';
-import {factory} from './common/factory.js';
-import {fakeEventFactory} from './fake-event.js';
+import { parseUrlOrigin } from './common/parse-url-origin';
+import { factory } from './common/factory';
+import { fakeEventFactory } from './fake-event';
 
 export const fakeMessageEventFactory = factory(() => {
   const FakeEvent = fakeEventFactory();
@@ -57,7 +57,9 @@ export const fakeMessageEventFactory = factory(() => {
      *
      * @return {void}
      */
+    // eslint-disable-next-line class-methods-use-this
     initMessageEvent() {
+      // Do nothing.
     }
 
     /**
@@ -89,6 +91,7 @@ export const fakeMessageEventFactory = factory(() => {
      * @return {Array<Object>} The message ports.
      * @see https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent/ports
      */
+    // eslint-disable-next-line class-methods-use-this
     get ports() {
       return [];
     }
@@ -112,6 +115,7 @@ export const fakeMessageEventFactory = factory(() => {
      * @return {Object} The message emitter source.
      * @see https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent/source
      */
+    // eslint-disable-next-line class-methods-use-this
     get source() {
       return null;
     }

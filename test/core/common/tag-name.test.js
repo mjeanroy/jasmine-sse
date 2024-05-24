@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {tagName} from '../../../src/core/common/tag-name.js';
+import { tagName } from '../../../src/core/common/tag-name';
 
 describe('tagName', () => {
   it('should return tagName of object', () => {

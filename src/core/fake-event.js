@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-import {factory} from './common/factory.js';
-import {NONE, CAPTURING_PHASE, BUBBLING_PHASE, AT_TARGET} from './event-states.js';
+import { factory } from './common/factory';
+import { NONE, CAPTURING_PHASE, BUBBLING_PHASE, AT_TARGET } from './event-states';
 
 export const fakeEventFactory = factory(() => {
   /**
@@ -171,6 +171,7 @@ export const fakeEventFactory = factory(() => {
      *
      * @return {void}
      */
+    // eslint-disable-next-line class-methods-use-this
     initEvent() {
     }
 

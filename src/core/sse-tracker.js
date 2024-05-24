@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {fakeEventSourceProxyFactory} from './fake-event-source-proxy.js';
+import { fakeEventSourceProxyFactory } from './fake-event-source-proxy';
 
 /**
  * The queue of opened `EventSource`.

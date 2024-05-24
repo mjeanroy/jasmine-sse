@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {flatten} from '../../../src/core/common/flatten.js';
+import { flatten } from '../../../src/core/common/flatten';
 
 describe('flatten', () => {
   it('should flatten arrays', () => {

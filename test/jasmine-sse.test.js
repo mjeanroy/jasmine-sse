@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import '../src/jasmine-sse.js';
+import '../src/jasmine-sse';
 
 describe('jasmine-sse', () => {
   let _EventSource;
@@ -89,8 +89,8 @@ describe('jasmine-sse', () => {
 
   it('should fail to uninstall jasmine-sse if it has not been previously installed', () => {
     expect(() => jasmine.sse().uninstall()).toThrow(new Error(
-        'It seems that `jasmine.sse` has not been installed, make sure `jasmine.sse().install()` ' +
-        'has been called before uninstalling it.'
+      'It seems that `jasmine.sse` has not been installed, make sure `jasmine.sse().install()` ' +
+      'has been called before uninstalling it.',
     ));
   });
 
@@ -98,8 +98,8 @@ describe('jasmine-sse', () => {
     jasmine.sse().install();
 
     expect(() => jasmine.sse().install()).toThrow(new Error(
-        'It seems that jasmine-sse has already been installed, make sure `jasmine.sse().uninstall()` ' +
-        'has been called after test suite.'
+      'It seems that jasmine-sse has already been installed, make sure `jasmine.sse().uninstall()` ' +
+      'has been called after test suite.',
     ));
 
     jasmine.sse().uninstall();

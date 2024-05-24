@@ -22,15 +22,15 @@
  * THE SOFTWARE.
  */
 
-import {assign} from './common/assign.js';
-import {isFunction} from './common/is-function.js';
-import {isNil} from './common/is-nil.js';
-import {isObject} from './common/is-object.js';
-import {factory} from './common/factory.js';
-import {flatten} from './common/flatten.js';
-import {values} from './common/values.js';
-import {fakeMessageEventFactory} from './fake-message-event.js';
-import {CONNECTING, OPEN, CLOSED} from './event-source-state.js';
+import { assign } from './common/assign';
+import { isFunction } from './common/is-function';
+import { isNil } from './common/is-nil';
+import { isObject } from './common/is-object';
+import { factory } from './common/factory';
+import { flatten } from './common/flatten';
+import { values } from './common/values';
+import { fakeMessageEventFactory } from './fake-message-event';
+import { CONNECTING, OPEN, CLOSED } from './event-source-state';
 
 export const fakeEventSourceProxyFactory = factory(() => {
   const FakeMessageEvent = fakeMessageEventFactory();
@@ -187,22 +187,22 @@ s     *
     emit(data) {
       if (isNil(data) || isFunction(data)) {
         throw new Error(
-            `Failed to emit message on 'EventSource': The message is ${String(data)}.`
+          `Failed to emit message on 'EventSource': The message is ${String(data)}.`,
         );
       }
 
       if (this._eventSource.readyState === CLOSED) {
         throw new Error(
-            `Failed to emit message on 'EventSource': The connection state is CLOSED.`
+          "Failed to emit message on 'EventSource': The connection state is CLOSED.",
         );
       }
 
-      let message = {type: 'message'};
+      let message = { type: 'message' };
 
       if (isObject(data)) {
         message = assign(message, data);
       } else {
-        message = assign(message, {data: String(data)});
+        message = assign(message, { data: String(data) });
       }
 
       if (this._eventSource._readyState === CONNECTING) {
@@ -210,7 +210,7 @@ s     *
       }
 
       this._eventSource.dispatchEvent(
-          new FakeMessageEvent(message, this._eventSource)
+        new FakeMessageEvent(message, this._eventSource),
       );
     }
 

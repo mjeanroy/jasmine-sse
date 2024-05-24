@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {factory} from '../../../src/core/common/factory.js';
+import { factory } from '../../../src/core/common/factory';
 
 describe('factory', () => {
   it('should build value once', () => {
@@ -39,7 +39,7 @@ describe('factory', () => {
   });
 
   it('should build value once even if function returns undefined', () => {
-    const o = void 0;
+    const o = undefined;
     const factoryFn = jasmine.createSpy('factoryFn').and.callFake(() => o);
     const resultFn = factory(factoryFn);
 

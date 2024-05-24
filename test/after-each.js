@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {reset} from '../src/core/sse-tracker.js';
+import { reset } from '../src/core/sse-tracker';
 
 afterEach(() => {
   reset();

@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {ObjectProto} from './object-proto.js';
+import { ObjectProto } from './object-proto';
 
 /**
  * Check if a given object has given key as own property.

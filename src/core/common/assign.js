@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-import {forEach} from './for-each.js';
-import {keys} from './keys.js';
+import { forEach } from './for-each';
+import { keys } from './keys';
 
 const _assign = Object.assign ? Object.assign : ((target, ...sources) => {
   const to = Object(target);

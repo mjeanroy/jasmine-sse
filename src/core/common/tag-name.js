@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 
-import {isNull} from './is-null.js';
-import {isUndefined} from './is-undefined.js';
-import {ObjectProto} from './object-proto.js';
+import { isNull } from './is-null';
+import { isUndefined } from './is-undefined';
+import { ObjectProto } from './object-proto';
 
 /**
  * Return the tag name of the object (a.k.a the result of `Object.prototype.toString`).

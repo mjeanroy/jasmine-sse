@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 
-import {isArray} from './is-array.js';
-import {isFunction} from './is-function.js';
-import {isNil} from './is-nil.js';
+import { isArray } from './is-array';
+import { isFunction } from './is-function';
+import { isNil } from './is-nil';
 
 /**
  * Check if a given value is a `string` value.

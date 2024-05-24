@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-import {keys} from './keys.js';
-import {map} from './map.js';
+import { keys } from './keys';
+import { map } from './map';
 
 /**
  * Get array of all object values.

@@ -22,17 +22,17 @@
  * THE SOFTWARE.
  */
 
-import {forEach} from './common/for-each.js';
-import {has} from './common/has.js';
-import {includes} from './common/includes.js';
-import {indexOf} from './common/index-of.js';
-import {isFunction} from './common/is-function.js';
-import {factory} from './common/factory.js';
-import {parseUrl} from './common/parse-url.js';
-import {fakeEventFactory} from './fake-event.js';
-import {track} from './sse-tracker.js';
-import {CONNECTING, OPEN, CLOSED} from './event-source-state.js';
-import {NONE, AT_TARGET} from './event-states.js';
+import { forEach } from './common/for-each';
+import { has } from './common/has';
+import { includes } from './common/includes';
+import { indexOf } from './common/index-of';
+import { isFunction } from './common/is-function';
+import { factory } from './common/factory';
+import { parseUrl } from './common/parse-url';
+import { fakeEventFactory } from './fake-event';
+import { track } from './sse-tracker';
+import { CONNECTING, OPEN, CLOSED } from './event-source-state';
+import { NONE, AT_TARGET } from './event-states';
 
 export const fakeEventSourceFactory = factory(() => {
   const FakeEvent = fakeEventFactory();
@@ -130,8 +130,8 @@ export const fakeEventSourceFactory = factory(() => {
 
       if (nbArguments !== 2) {
         throw new TypeError(
-            `Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, ` +
-            `but only ${nbArguments} present.`
+          "Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, " +
+          `but only ${nbArguments} present.`,
         );
       }
 
@@ -158,8 +158,8 @@ export const fakeEventSourceFactory = factory(() => {
 
       if (nbArguments !== 2) {
         throw new TypeError(
-            `Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, ` +
-            `but only ${nbArguments} present.`
+          "Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, " +
+          `but only ${nbArguments} present.`,
         );
       }
 
@@ -182,10 +182,11 @@ export const fakeEventSourceFactory = factory(() => {
      * @return {void}
      */
     dispatchEvent(event) {
-      const type = event.type;
+      const { type } = event;
       const listeners = has(this._listeners, type) ? this._listeners[type] : [];
 
       // Ensure the event phase is correct.
+      // eslint-disable-next-line no-param-reassign
       event._eventPhase = AT_TARGET;
 
       const methodName = `on${type}`;
@@ -203,6 +204,7 @@ export const fakeEventSourceFactory = factory(() => {
       }
 
       // Ensure the event phase is correct.
+      // eslint-disable-next-line no-param-reassign
       event._eventPhase = NONE;
 
       return !!event.cancelable && !!event.defaultPrevented;
@@ -246,7 +248,7 @@ export const fakeEventSourceFactory = factory(() => {
     _announceConnection() {
       this._readyState = OPEN;
       this.dispatchEvent(
-          new FakeEvent('open', this)
+        new FakeEvent('open', this),
       );
     }
 
@@ -258,7 +260,7 @@ export const fakeEventSourceFactory = factory(() => {
     _failConnection() {
       this._readyState = CLOSED;
       this.dispatchEvent(
-          new FakeEvent('error', this)
+        new FakeEvent('error', this),
       );
     }
 
@@ -270,7 +272,7 @@ export const fakeEventSourceFactory = factory(() => {
     _reestablishConnection() {
       this._readyState = CONNECTING;
       this.dispatchEvent(
-          new FakeEvent('error', this)
+        new FakeEvent('error', this),
       );
     }
   }

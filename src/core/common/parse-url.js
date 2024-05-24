@@ -55,7 +55,7 @@ class FakeUrl {
 
     // Ensure the pathname always starts with a '/'
     if (this.pathname[0] !== '/') {
-      this.pathname = '/' + this.pathname;
+      this.pathname = `/${this.pathname}`;
     }
   }
 
@@ -132,15 +132,15 @@ class FakeUrl {
 function nativeUrl(url) {
   const result = new URL(url, document.documentURI);
   return new FakeUrl(
-      result.protocol,
-      result.username,
-      result.password,
-      result.host,
-      result.hostname,
-      result.port,
-      result.pathname,
-      result.search,
-      result.hash
+    result.protocol,
+    result.username,
+    result.password,
+    result.host,
+    result.hostname,
+    result.port,
+    result.pathname,
+    result.search,
+    result.hash,
   );
 }
 
@@ -155,15 +155,15 @@ function polyfillUrl(url) {
   a.href = url;
 
   return new FakeUrl(
-      a.protocol,
-      a.username,
-      a.password,
-      a.host,
-      a.hostname,
-      a.port,
-      a.pathname,
-      a.search,
-      a.hash
+    a.protocol,
+    a.username,
+    a.password,
+    a.host,
+    a.hostname,
+    a.port,
+    a.pathname,
+    a.search,
+    a.hash,
   );
 }
 
@@ -184,7 +184,8 @@ function ensureUrl(url, protocol, hostname, port, pathname, search) {
       url.hostname === hostname &&
       url.port === port &&
       url.host === `${hostname}:${port}` &&
-      url.pathname === pathname;
+      url.pathname === pathname &&
+      url.search === search;
 }
 
 /**
