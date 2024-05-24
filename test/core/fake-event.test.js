@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {fakeEventFactory} from '../../src/core/fake-event.js';
+import { fakeEventFactory } from '../../src/core/fake-event';
 
 describe('FakeEvent', () => {
   let FakeEvent;

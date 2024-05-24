@@ -22,12 +22,16 @@
  * THE SOFTWARE.
  */
 
+/* eslint-disable wrap-iife */
+/* eslint-disable func-names */
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable prefer-template */
 /* eslint-disable no-var */
 /* eslint-disable no-invalid-this */
 /* eslint-disable require-jsdoc */
 /* eslint-disable no-console */
 
-(function() {
+(function () {
   var $output = document.getElementById('output');
   var $connect = document.getElementById('connect-btn');
   var $disconnect = document.getElementById('disconnect-btn');
@@ -58,7 +62,7 @@
     }
   }
 
-  $disconnect.addEventListener('click', function() {
+  $disconnect.addEventListener('click', function () {
     closeStream();
 
     $input.value = '';
@@ -67,7 +71,7 @@
     $disconnect.disabled = true;
   });
 
-  $connect.addEventListener('click', function() {
+  $connect.addEventListener('click', function () {
     createStream();
 
     $input.value = '';
@@ -76,7 +80,7 @@
     $disconnect.disabled = false;
   });
 
-  $form.addEventListener('submit', function(e) {
+  $form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     ajax('POST', '/message', $input.value);

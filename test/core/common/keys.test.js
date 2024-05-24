@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-import {keys} from '../../../src/core/common/keys.js';
+import { keys } from '../../../src/core/common/keys';
 
 describe('keys', () => {
   it('should get all keys of object', () => {
-    const object = {id: 1, name: 'John Doe'};
+    const object = { id: 1, name: 'John Doe' };
     const result = keys(object);
     expect(result).toEqual(['id', 'name']);
   });

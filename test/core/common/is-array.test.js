@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {isArray} from '../../../src/core/common/is-array.js';
+import { isArray } from '../../../src/core/common/is-array';
 
 describe('isArray', () => {
   it('should return true with an array', () => {

@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-import {fakeEventSourceFactory} from './core/fake-event-source.js';
-import {sseTracker, reset} from './core/sse-tracker.js';
+import { fakeEventSourceFactory } from './core/fake-event-source';
+import { sseTracker, reset } from './core/sse-tracker';
 
 // eslint-disable-next-line no-undef
 const GLOBAL = window || global;
@@ -68,8 +68,8 @@ jasmine.sse = () => ({
 
       if (checkEventSourceImpl(FakeEventSource)) {
         throw new Error(
-            'It seems that jasmine-sse has already been installed, make sure `jasmine.sse().uninstall()` ' +
-            'has been called after test suite.'
+          'It seems that jasmine-sse has already been installed, make sure `jasmine.sse().uninstall()` ' +
+          'has been called after test suite.',
         );
       }
 
@@ -90,8 +90,8 @@ jasmine.sse = () => ({
     if (EVENT_SOURCE) {
       if (!checkEventSourceImpl(FakeEventSource)) {
         throw new Error(
-            'It seems that `jasmine.sse` has not been installed, make sure `jasmine.sse().install()` ' +
-            'has been called before uninstalling it.'
+          'It seems that `jasmine.sse` has not been installed, make sure `jasmine.sse().install()` ' +
+          'has been called before uninstalling it.',
         );
       }
 

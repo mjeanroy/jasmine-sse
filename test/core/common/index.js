@@ -22,23 +22,23 @@
  * THE SOFTWARE.
  */
 
-import './assign.test.js';
-import './factory.test.js';
-import './flatten.test.js';
-import './for-each.test.js';
-import './has.test.js';
-import './includes.test.js';
-import './index-of.test.js';
-import './is-array.test.js';
-import './is-function.test.js';
-import './is-nil.test.js';
-import './is-null.test.js';
-import './is-object.test.js';
-import './is-undefined.test.js';
-import './is.test.js';
-import './keys.test.js';
-import './map.test.js';
-import './parse-url.test.js';
-import './parse-url-origin.test.js';
-import './tag-name.test.js';
-import './values.test.js';
+import './assign.test';
+import './factory.test';
+import './flatten.test';
+import './for-each.test';
+import './has.test';
+import './includes.test';
+import './index-of.test';
+import './is-array.test';
+import './is-function.test';
+import './is-nil.test';
+import './is-null.test';
+import './is-object.test';
+import './is-undefined.test';
+import './is.test';
+import './keys.test';
+import './map.test';
+import './parse-url.test';
+import './parse-url-origin.test';
+import './tag-name.test';
+import './values.test';

@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {track, reset, sseTracker} from '../../src/core/sse-tracker.js';
+import { track, reset, sseTracker } from '../../src/core/sse-tracker';
 
 describe('sseTracker', () => {
   it('should get mostRecent connection', () => {

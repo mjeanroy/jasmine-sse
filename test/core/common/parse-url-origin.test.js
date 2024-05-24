@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {parseUrlOrigin} from '../../../src/core/common/parse-url-origin.js';
+import { parseUrlOrigin } from '../../../src/core/common/parse-url-origin';
 
 describe('parseUrlOrigin', () => {
   it('should get URL origin', () => {

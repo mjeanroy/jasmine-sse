@@ -29,5 +29,6 @@
  * @return {boolean} `true` if `value` is a `undefined`, `false`otherwise.
  */
 export function isUndefined(value) {
+  // eslint-disable-next-line no-void
   return value === void 0;
 }

@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 
-import './common/index.js';
-import './fake-event-source-proxy.test.js';
-import './fake-event-source.test.js';
-import './fake-event.test.js';
-import './fake-message-event.test.js';
-import './sse-tracker.test.js';
+import './common/index';
+import './fake-event-source-proxy.test';
+import './fake-event-source.test';
+import './fake-event.test';
+import './fake-message-event.test';
+import './sse-tracker.test';

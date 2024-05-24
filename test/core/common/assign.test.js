@@ -22,13 +22,13 @@
  * THE SOFTWARE.
  */
 
-import {assign} from '../../../src/core/common/assign.js';
+import { assign } from '../../../src/core/common/assign';
 
 describe('assign', () => {
   it('should create target object from sources object', () => {
     const target = {};
-    const source1 = {id: 1};
-    const source2 = {id: 2, name: 'John Doe'};
+    const source1 = { id: 1 };
+    const source2 = { id: 2, name: 'John Doe' };
 
     const result = assign(target, source1, source2);
 

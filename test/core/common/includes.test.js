@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {includes} from '../../../src/core/common/includes.js';
+import { includes } from '../../../src/core/common/includes';
 
 describe('includes', () => {
   it('should check if element is in array', () => {

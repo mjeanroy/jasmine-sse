@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-import {fakeEventSourceFactory} from '../../src/core/fake-event-source.js';
-import {fakeMessageEventFactory} from '../../src/core/fake-message-event.js';
+import { fakeEventSourceFactory } from '../../src/core/fake-event-source';
+import { fakeMessageEventFactory } from '../../src/core/fake-message-event';
 
 describe('FakeMessageEvent', () => {
   let FakeEventSource;
@@ -35,7 +35,7 @@ describe('FakeMessageEvent', () => {
   });
 
   it('should create the fake event', () => {
-    const data = {type: 'message', id: '1', data: 'test'};
+    const data = { type: 'message', id: '1', data: 'test' };
     const target = new FakeEventSource('/stream');
     const event = new FakeMessageEvent(data, target);
 
@@ -60,14 +60,14 @@ describe('FakeMessageEvent', () => {
   });
 
   it('should create the fake event with origin of given URL', () => {
-    const data = {type: 'message', id: '1', data: 'test'};
+    const data = { type: 'message', id: '1', data: 'test' };
     const target = new FakeEventSource('/stream');
     const event = new FakeMessageEvent(data, target);
     expect(event.origin).toBe('http://localhost:9876');
   });
 
   it('should create the fake event with custom type', () => {
-    const data = {type: 'custom', id: '1', data: 'test'};
+    const data = { type: 'custom', id: '1', data: 'test' };
     const target = new FakeEventSource('/stream');
     const event = new FakeMessageEvent(data, target);
 
@@ -95,7 +95,7 @@ describe('FakeMessageEvent', () => {
     let event;
 
     beforeEach(() => {
-      const data = {type: 'message', id: '1', data: 'test'};
+      const data = { type: 'message', id: '1', data: 'test' };
       const target = new FakeEventSource('/stream');
       event = new FakeMessageEvent(data, target);
     });

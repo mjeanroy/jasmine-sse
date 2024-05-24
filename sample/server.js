@@ -26,15 +26,16 @@
 /* eslint-disable no-console */
 
 const express = require('express');
-const app = express();
 const SSE = require('express-sse');
 const bodyParser = require('body-parser');
+
+const app = express();
 const connections = [];
 
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.raw());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', express.static(__dirname));
 

@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {values} from '../../../src/core/common/values.js';
+import { values } from '../../../src/core/common/values';
 
 describe('values', () => {
   it('should get object values', () => {

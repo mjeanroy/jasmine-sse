@@ -22,14 +22,14 @@
  * THE SOFTWARE.
  */
 
-import {forEach} from '../../../src/core/common/for-each.js';
+import { forEach } from '../../../src/core/common/for-each';
 
 describe('forEach', () => {
   it('should call iteratee for each elements in array', () => {
     const array = [2, 4, 6];
-    const iteratee = jasmine.createSpy().and.callFake((x) =>
+    const iteratee = jasmine.createSpy().and.callFake((x) => (
       x * x
-    );
+    ));
 
     forEach(array, iteratee);
 

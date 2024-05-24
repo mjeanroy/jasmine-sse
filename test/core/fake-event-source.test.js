@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-import {fakeEventSourceFactory} from '../../src/core/fake-event-source.js';
-import {fakeEventFactory} from '../../src/core/fake-event.js';
+import { fakeEventSourceFactory } from '../../src/core/fake-event-source';
+import { fakeEventFactory } from '../../src/core/fake-event';
 
 describe('FakeEventSource', () => {
   let FakeEvent;
@@ -87,19 +87,19 @@ describe('FakeEventSource', () => {
 
     it('should fail to add event listener without any argument', () => {
       expect(() => sse.addEventListener()).toThrow(new Error(
-          `Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only 0 present.`
+        "Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only 0 present.",
       ));
     });
 
     it('should fail to add event listener without listener handler', () => {
       expect(() => sse.addEventListener('open')).toThrow(new Error(
-          `Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only 1 present.`
+        "Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only 1 present.",
       ));
     });
 
     it('should not add duplicated event listener', () => {
       const listener = jasmine.createSpy('listener');
-      const event = {type: 'open'};
+      const event = { type: 'open' };
 
       sse.addEventListener('open', listener);
       sse.dispatchEvent(event);
@@ -109,7 +109,7 @@ describe('FakeEventSource', () => {
 
     it('should not try to remove unregistered event listener', () => {
       const listener = jasmine.createSpy('listener');
-      const event = {type: 'open'};
+      const event = { type: 'open' };
 
       sse.removeEventListener('open', listener);
       sse.dispatchEvent(event);
@@ -130,13 +130,13 @@ describe('FakeEventSource', () => {
 
     it('should fail to remove event listener without any argument', () => {
       expect(() => sse.removeEventListener()).toThrow(new Error(
-          `Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, but only 0 present.`
+        "Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, but only 0 present.",
       ));
     });
 
     it('should fail to remove event listener without listener handler', () => {
       expect(() => sse.removeEventListener('open')).toThrow(new Error(
-          `Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, but only 1 present.`
+        "Failed to execute 'removeEventListener' on 'EventTarget': 2 arguments required, but only 1 present.",
       ));
     });
 

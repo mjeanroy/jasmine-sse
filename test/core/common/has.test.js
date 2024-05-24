@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-import {has} from '../../../src/core/common/has.js';
+import { has } from '../../../src/core/common/has';
 
 describe('has', () => {
   it('should returns true if object has own key', () => {
-    const o = {id: 1, name: 'John Doe'};
+    const o = { id: 1, name: 'John Doe' };
     expect(has(o, 'id')).toBe(true);
     expect(has(o, 'name')).toBe(true);
     expect(has(o, 'toString')).toBe(false);

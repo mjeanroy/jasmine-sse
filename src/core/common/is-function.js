@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {is} from './is.js';
+import { is } from './is';
 
 /**
  * Check if a given value is a `string` value.

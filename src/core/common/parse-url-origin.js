@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-import {parseUrl} from './parse-url.js';
+import { parseUrl } from './parse-url';
 
 /**
  * Parse URL and extract origin (protocol, host and port if provided).
