@@ -34,7 +34,7 @@
     "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.30.0",
-    "express": "4.19.2",
+    "express": "4.20.0",
     "express-sse": "0.5.3",
     "fancy-log": "2.0.0",
     "gulp": "5.0.0",
