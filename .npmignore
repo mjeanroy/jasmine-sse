@@ -40,3 +40,5 @@
 /scripts
 /*.iml
 npm-debug.log
+/pnpm-workspace.yaml
+/pnpm-lock.yaml
