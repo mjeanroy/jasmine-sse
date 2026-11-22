@@ -25,6 +25,11 @@
 import { track, reset, sseTracker } from '../../src/core/sse-tracker';
 
 describe('sseTracker', () => {
+  // The global `afterEach` hook (test/after-each.js) is not bundled when this file is run alone with `--file`.
+  beforeEach(() => {
+    reset();
+  });
+
   it('should get mostRecent connection', () => {
     const sse = jasmine.createSpyObj('FakeEventSource', ['close']);
 
