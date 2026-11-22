@@ -26,7 +26,7 @@ const path = require('node:path');
 const colors = require('ansi-colors');
 const log = require('fancy-log');
 const karma = require('karma');
-const config = require('../config');
+const { readCliOptions } = require('../cli');
 
 /**
  * Run unit tests and exit.
@@ -78,59 +78,33 @@ function auto(done) {
 }
 
 /**
- * Read all values of a CLI option, supporting both `--name value` and `--name=value`.
- *
- * @param {Array<string>} argv The CLI arguments.
- * @param {string} name The option name (without leading dashes).
- * @return {Array<string>} The option values.
- */
-function readOption(argv, name) {
-  const flag = `--${name}`;
-  const values = [];
-
-  for (let i = 0; i < argv.length; ++i) {
-    const arg = argv[i];
-    if (arg === flag && i + 1 < argv.length) {
-      values.push(argv[i + 1]);
-      i += 1;
-    } else if (arg.startsWith(`${flag}=`)) {
-      values.push(arg.slice(flag.length + 1));
-    }
-  }
-
-  return values;
-}
-
-/**
  * Build Karma options overriding the configuration file, from CLI arguments:
  * - `--file <path>` (repeatable, globs allowed): run only these spec files instead of `test/index.js`.
  * - `--filter <pattern>`: run only specs whose full name contains the pattern.
  *
- * @param {Array<string>} argv The CLI arguments.
- * @return {Object} The Karma CLI options.
+ * @return {Object} The Karma options.
  */
-function readCliOptions(argv) {
-  const cliOptions = {};
+function createKarmaOptions() {
+  const { files, filter } = readCliOptions();
+  const karmaOptions = {};
 
-  const specs = readOption(argv, 'file').map((spec) => path.resolve(config.root, spec));
-  if (specs.length > 0) {
-    log(colors.grey(`Running spec files: ${specs.join(', ')}`));
-    cliOptions.files = specs;
-    cliOptions.preprocessors = {};
-    specs.forEach((spec) => {
-      cliOptions.preprocessors[spec] = ['rollup', 'babel'];
+  if (files.length > 0) {
+    log(colors.grey(`Running spec files: ${files.join(', ')}`));
+    karmaOptions.files = files;
+    karmaOptions.preprocessors = {};
+    files.forEach((file) => {
+      karmaOptions.preprocessors[file] = ['rollup', 'babel'];
     });
   }
 
-  const filter = readOption(argv, 'filter');
-  if (filter.length > 0) {
-    log(colors.grey(`Running specs matching: ${filter[0]}`));
-    cliOptions.client = {
-      args: ['--grep', filter[0]],
+  if (filter) {
+    log(colors.grey(`Running specs matching: ${filter}`));
+    karmaOptions.client = {
+      args: ['--grep', filter],
     };
   }
 
-  return cliOptions;
+  return karmaOptions;
 }
 
 /**
@@ -144,11 +118,11 @@ function runKarma(mode, done) {
   const fileName = `karma.${mode}.conf.js`;
   const configFilePath = path.join(__dirname, fileName);
 
-  const cliOptions = readCliOptions(process.argv.slice(2));
+  const karmaOptions = createKarmaOptions();
 
   log(colors.grey(`Parsing karma configuration from: ${configFilePath}`));
   const parseOptions = { promiseConfig: true, throwErrors: true };
-  karma.config.parseConfig(configFilePath, cliOptions, parseOptions).then((karmaConfig) => {
+  karma.config.parseConfig(configFilePath, karmaOptions, parseOptions).then((karmaConfig) => {
     const srv = new karma.Server(karmaConfig, (err) => {
       log(colors.grey('Calling done callback of Karma'));
       done(err);
