@@ -1,12 +1,10 @@
 ## Jasmine-SSE
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/mjeanroy/jasmine-sse.svg)](https://greenkeeper.io/)
-
-A simple addon for [](Jasmine) to test a "Server Sent Event" application easily!
+A simple addon for [Jasmine](https://jasmine.github.io/) to test a "Server Sent Event" application easily!
 
 ### Installation
 
-- Install the latest version: `npm run install --save-dev jasmine-sse`.
+- Install the latest version: `npm install --save-dev jasmine-sse`.
 - Add the `main` entry point (i.e `dist/jasmine-sse.js`) file to your test suite.
 
 ### Example
@@ -27,7 +25,7 @@ function connect() {
   }
 
   sse = new EventSource('/chat');
-  sse.addEventListener('message', displayMessage);
+  sse.addEventListener('message', onNewMessage);
 }
 
 function sendMessage(message) {
@@ -43,7 +41,7 @@ function sendMessage(message) {
 function disconnect() {
   if (sse) {
     sse.close();
-    sse.removeEventListener('message', displayMessage);
+    sse.removeEventListener('message', onNewMessage);
     sse = null;
   }
 }
@@ -66,7 +64,7 @@ describe('app', () => {
 
     const connections = jasmine.sse().connections();
     expect(connections.count()).toBe(1);
-    
+
     const connection = connections.mostRecent();
     expect(connection.url).toBe('...');
     expect(connection.readyState).toBe(0);
@@ -75,16 +73,16 @@ describe('app', () => {
     connection.emit('Hi dude');
     expect(messages).toEqual(['Hi dude']);
 
-    // Or with an object containing event type.
+    // Or with an object containing event type: it is not dispatched to `message` listeners.
     connection.emit({
       type: 'custom',
-      message: 'Hi bob',
+      data: 'Hi bob',
     });
 
     expect(messages).toEqual(['Hi dude']);
 
     disconnect();
-    expect(sse.getEventListeners()).toEqual([]);
+    expect(connection.getEventListeners()).toEqual([]);
   });
 });
 ```
@@ -97,28 +95,28 @@ describe('app', () => {
 
 Install the fake `EventSource` implementation, typically called in a `beforeEach` method.
 Note that:
-  - The fake implementation is installed if, and only if, a native `EventSource` implementaton is available (i.e if browser supports `EventSource`), otherwise this method do nothing (and do not fail).
+  - The fake implementation is installed if, and only if, a native `EventSource` implementation is available (i.e if browser supports `EventSource`), otherwise this method does nothing (and does not fail).
   - This method will fail if `jasmine-sse` has already been installed.
 
 `jasmine.sse().uninstall()`
 
-Install the fake `EventSource` implementation, typically called in a `beforeEach` method.
+Uninstall the fake `EventSource` implementation and restore the native one, typically called in an `afterEach` method.
 Note that:
-  - Like the `jasmine.sse().install()` method, if browser does not support native `EventSource` this method do nothing (and do not fail).
+  - Like the `jasmine.sse().install()` method, if browser does not support native `EventSource` this method does nothing (and does not fail).
   - This method will fail if `jasmine-sse` has not been previously installed.
 
 `jasmine.sse().connections()`
 
-Returns an object containing methods to get tracked connection:
+Returns an object containing methods to get tracked connections:
   - `count(): number` Get the number of tracked connections.
   - `all(): Array<FakeEventSource>` Get an array of all tracked connections.
-  - `first(): FakeEventSource` Get the first tracked connections or `undefined`.
-  - `last(): FakeEventSource` Get the last tracked connections or `undefined`.
+  - `first(): FakeEventSource` Get the first tracked connection or `undefined`.
+  - `mostRecent(): FakeEventSource` Get the most recent tracked connection or `undefined`.
   - `at(idx: number): FakeEventSource` Get the tracked connection at given index or `undefined`.
 
 `jasmine.sse().withMock(testFn)`
 
-Install the fake `EventSource` implementation, execute the test function `testFn`, then reset the fake implementation. This method can be used
+Install the fake `EventSource` implementation, execute the test function `testFn` (and return its result), then uninstall the fake implementation, even if `testFn` throws. This method can be used
 to install/uninstall fake `EventSource` API in a single test, for example:
 
 ```javascript
@@ -130,16 +128,22 @@ it('should run test with fake implementation', () => {
 });
 ```
 
+Note that, since it calls `jasmine.sse().install()`, this method will fail if `jasmine-sse` has already been installed (for example in a `beforeEach` method).
+
 #### `FakeEventSource`
 
-A tracked connection is a fake `EventSource` (so contains all methods of `EventSource` object as documented [here](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)) with additional methods:
+A tracked connection is a fake `EventSource` (so contains all methods of `EventSource` object as documented [here](https://developer.mozilla.org/en-US/docs/Web/API/EventSource), and the static `CONNECTING`, `OPEN` and `CLOSED` constants) with additional methods:
 
-- `emit(message: string|object): void` Emit a message from the server.
-- `failConnection(): void` Fail the connection, typically used to test a connection failure from server.
-- `reestablishConnection(): Array<string>` Reestablish connection, typically used to test connection establishment.
+- `emit(message: string|object): void` Emit a message from the server:
+  - A string is dispatched as the `data` of a `message` event.
+  - An object may define the event `type` (defaults to `message`), its `data` and its `id` (exposed as `lastEventId`).
+  - If the connection is still `CONNECTING`, it is opened first (and an `open` event is dispatched).
+  - This method will fail if the connection is `CLOSED`, or if the message is `null`, `undefined` or a function.
+- `failConnection(): void` Fail the connection, typically used to test a connection failure from server: the connection state is set to `CLOSED` and an `error` event is dispatched (does nothing if the connection is already `CLOSED`).
+- `reestablishConnection(): void` Reestablish connection, typically used to test connection establishment: the connection state is set to `CONNECTING` and an `error` event is dispatched (does nothing if the connection is already `CLOSED`).
 - `getEventListeners(eventType?: string): Array<function>` Get registered listeners (passing string parameter will return registered event listeners for given event type).
 
-### Licence
+### License
 
 MIT License (MIT)
 
